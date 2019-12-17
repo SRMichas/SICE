@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sorezel.sice">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--<activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".InfoActivity" />
+        <activity
+            android:name=".AlumnoActivity"
+            android:label="SICE:Alumno"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CoordinadorActivity"
+            android:label="SICE:Coordinador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".KardexActivity"
+            android:label="SICE:Kardex"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DetalleSolicitudActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".TablaMain" />
+        <activity
+            android:name=".Anexo6Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".EstadoSolicitudActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AcademiaActivity"
+            android:label="SICE:Maestro"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Anexo7Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".LlenarMatActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AcademiaActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".JefeDivisionesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EscolaresActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Anexo6Activity2"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".FormularioActivity"
+            android:screenOrientation="portrait" />
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tam_card">130.0dip</dimen>
+    <dimen name="tam_letra">18.0sp</dimen>
+    <dimen name="tam_letra_cve">16.0dip</dimen>
+    <dimen name="text_size">12.0sp</dimen>
+    <dimen name="card_marg">30.0dip</dimen>
+    <dimen name="card_radious">6.0dip</dimen>
+    <dimen name="ic_size">70.0dip</dimen>
+    <dimen name="icon_size">150.0dip</dimen>
+    <dimen name="txtvw_margin">10.0dip</dimen>
+    <dimen name="login_editxt">200.0dip</dimen>
+    <dimen name="logo">120.0dip</dimen>
+</resources>

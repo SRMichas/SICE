@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/lle_tool"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tool_color"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100.0"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_mate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="75.0" />
+
+        <View
+            android:layout_width="2.0dip"
+            android:layout_height="fill_parent"
+            android:background="@android:color/black" />
+
+        <fragment
+            android:id="@+id/fr_maestro"
+            android:name="com.example.elias.sice.Fragments.LlenaMatFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="25.0" />
+    </LinearLayout>
+</LinearLayout>

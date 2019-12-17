@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="transparencia">@android:color/transparent</color>
+    <color name="facebook">#ff28437c</color>
+    <color name="tool_color">@color/facebook</color>
+    <color name="form_fondo">#ffdef7f7</color>
+    <color name="highlight">#ff000000</color>
+    <color name="bg_color">#ff99dcd7</color>
+    <color name="bg_line">#ffe7e7e7</color>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SICEv.2</string>
+    <string name="acep">Aceptada</string>
+    <string name="asig_con">Asignatura a Convalidar</string>
+    <string name="asig_cur">Asignatura Cursada</string>
+    <string name="cal">Calificacion</string>
+    <string name="cve_asig">Clave Asignatura</string>
+    <string name="cve_con">Clave Asignatura a Convalidar</string>
+    <string name="porcen">% Porcen</string>
+</resources>

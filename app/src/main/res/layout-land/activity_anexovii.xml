@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/anexo7_tool"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tool_color"
+            android:theme="@style/ToolbarTheme"
+            app:titleTextColor="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:weightSum="4.0">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:gravity="center"
+                android:text="Instituto:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_alum_inst7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center"
+                android:text="Instituto tecnologico de Culiacan" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.05"
+                android:gravity="center"
+                android:text="Nombre Estudiante:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_alum_nom7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:gravity="center"
+                android:text="Soria Ramirez Elias Misael" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50.0dip">
+
+            <LinearLayout
+                android:id="@+id/col1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.9"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="18.0dip" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1.0"
+                    android:paddingRight="20.0dip"
+                    android:text="Nombre plan de estudios:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1.0"
+                    android:paddingRight="20.0dip"
+                    android:text="Clave plan de estudios:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1.0"
+                    android:paddingRight="20.0dip"
+                    android:text="Instituto:" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2.0dip"
+                android:layout_height="fill_parent"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/col2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/darker_gray"
+                    android:gravity="center"
+                    android:text="De:" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_plan_d7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="2015" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_clave_d7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="cve2015" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_inst_d7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="Culiacan" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2.0dip"
+                android:layout_height="fill_parent"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/col3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/darker_gray"
+                    android:gravity="center"
+                    android:text="A:" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_plan_a7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="2015" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_clave_a7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="cve2015" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/txt_inst_a7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:text="Culiacan" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.5dip"
+                    android:background="@android:color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2.0dip"
+                android:layout_height="fill_parent"
+                android:background="@android:color/black" />
+        </LinearLayout>
+
+        <include layout="@layout/cabezera2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recy_mat2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20.0dip"
+                android:text="Total de Creditos convalidados:" />
+
+            <TextView
+                android:id="@+id/txt_total_creditos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20.0dip"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:text="Autorizada por:"
+                android:textSize="20.0dip" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/firma_jefe_div"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_marginRight="5.0dip"
+                    android:text="Jefe de Division de Estudios Profesionales" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_aceptar_conva"
+            style="@style/miStilo"
+            android:layout_width="200.0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="30.0dip"
+            android:onClick="aceptar7"
+            android:text="Aceptar" />
+    </LinearLayout>
+</ScrollView>
