@@ -8,4 +8,6 @@
     <string name="cve_asig">Clave Asignatura</string>
     <string name="cve_con">Clave Asignatura a Convalidar</string>
     <string name="porcen">% Porcen</string>
+    <string name="open">Open Navigation drawer</string>
+    <string name="close">Close Navigation drawer</string>
 </resources>

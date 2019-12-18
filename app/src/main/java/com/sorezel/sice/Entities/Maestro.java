@@ -1,6 +1,8 @@
 package com.sorezel.sice.Entities;
 
-public class Maestro {
+import java.io.Serializable;
+
+public class Maestro implements Serializable {
 
     private int ID;
     private String Nombre,ApePat,ApeMat,Contraseña;

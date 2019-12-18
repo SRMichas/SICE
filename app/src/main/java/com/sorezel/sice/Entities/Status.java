@@ -4,22 +4,22 @@ import java.io.Serializable;
 
 public class Status implements Serializable {
 
-    char ID;
+    short ID;
     String desc;
 
     public Status() {
     }
 
-    public Status(char ID, String desc) {
+    public Status(short ID, String desc) {
         this.ID = ID;
         this.desc = desc;
     }
 
-    public char getID() {
+    public short getID() {
         return ID;
     }
 
-    public void setID(char ID) {
+    public void setID(short ID) {
         this.ID = ID;
     }
 

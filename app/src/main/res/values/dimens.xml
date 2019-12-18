@@ -11,4 +11,6 @@
     <dimen name="txtvw_margin">10.0dip</dimen>
     <dimen name="login_editxt">200.0dip</dimen>
     <dimen name="logo">120.0dip</dimen>
+    <dimen name="txv_margin_left">38dp</dimen>
+    <dimen name="progress_size">190dp</dimen>
 </resources>

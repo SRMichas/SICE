@@ -1,18 +1,21 @@
 package com.sorezel.sice.Entities;
 
-public class Materia {
+import java.io.Serializable;
+
+public class Materia implements Serializable {
 
     int ID;
     String Nombre;
-    short Creditos;
+    short Creditos,Calificacion;
 
     public Materia() {
     }
 
-    public Materia(int ID, String nombre, short creditos) {
+    public Materia(int ID, String nombre, short creditos, short calificacion) {
         this.ID = ID;
         Nombre = nombre;
         Creditos = creditos;
+        Calificacion = calificacion;
     }
 
     public int getID() {
@@ -37,5 +40,13 @@ public class Materia {
 
     public void setCreditos(short creditos) {
         Creditos = creditos;
+    }
+
+    public short getCalificacion() {
+        return Calificacion;
+    }
+
+    public void setCalificacion(short calificacion) {
+        Calificacion = calificacion;
     }
 }

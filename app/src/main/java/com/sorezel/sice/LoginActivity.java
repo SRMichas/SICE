@@ -1,6 +1,7 @@
 package com.sorezel.sice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,10 +30,14 @@ public class LoginActivity extends AppCompatActivity {
     LocalHelper2.Consultas consultas;
     private SQLiteDatabase mDb;
     String us,ps;
+    private EditText u,p;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        u=findViewById(R.id.login_user);
+        p=findViewById(R.id.login_pass);
 
         LocalHelper2 helper = new LocalHelper2(this);
         helper.openDataBase();
@@ -41,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private boolean checkText(){
-        EditText u=findViewById(R.id.login_user),p=findViewById(R.id.login_pass);
         us = u.getText().toString();
         ps = p.getText().toString();
 
@@ -56,18 +60,32 @@ public class LoginActivity extends AppCompatActivity {
         if( checkText() ) {
             Object obj = consultas.retUser(new String[]{us, ps});
             String d = "";
+            Intent intent = new Intent();
+            Bundle b = new Bundle();
             if (obj instanceof Alumno) {
                 d = "Alumno";
+                intent.setClass(this,AlumnoActivity.class);
+                intent.putExtra("user",(Alumno)obj);
             }else if(obj instanceof Coordinador){
                 d = "Coordinador";
+                intent.setClass(this,CoordinadorActivity.class);
+                intent.putExtra("user",(Coordinador)obj);
             }else if(obj instanceof Maestro){
                 d = "Maestro";
+                intent.setClass(this,EscolaresActivity.class);
+                intent.putExtra("user",(Maestro)obj);
             }else if(obj instanceof JefeAcademia){
                 d = "JefeAcademia";
+                intent.setClass(this,JefeDivisionesActivity.class);
+                intent.putExtra("user",(JefeAcademia)obj);
             }else if(obj instanceof JefeDepartamento){
                 d = "Jefe Departamento";
+                intent.setClass(this,JefeDivisionesActivity.class);
+                intent.putExtra("user",(JefeDepartamento)obj);
             }else if(obj instanceof Escolares){
                 d = "Escolares";
+                intent.setClass(this,EscolaresActivity.class);
+                intent.putExtra("user",(Escolares)obj);
             }else{
                 Snackbar.make(findViewById(R.id.login_ingresar),
                         "Usuario Invalido"
@@ -77,11 +95,17 @@ public class LoginActivity extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.login_ingresar),
                     "Ingreso: "+d
                     ,Snackbar.LENGTH_SHORT).show();
+            startActivity(intent);
+            clearTxt();
         }else{
             Snackbar.make(findViewById(R.id.login_ingresar),
                     "llene los campos faltantes"
                     ,Snackbar.LENGTH_SHORT).show();
         }
+    }
+    private void clearTxt(){
+        u.setText("");
+        p.setText("");
     }
     public void inizializateDataBase(){
         mDBHelper = new LocalHelper(this);

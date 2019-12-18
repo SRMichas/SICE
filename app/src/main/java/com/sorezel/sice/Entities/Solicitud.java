@@ -4,21 +4,22 @@ import java.io.Serializable;
 
 public class Solicitud implements Serializable {
 
-    int ID,Matricula;
+    int ID;
     String fchSolicitada,fchRespuesta;
+    Alumno al;
     Carrera sol;
-    char status;
+    Status status;
 
     public Solicitud() {
     }
 
-    public Solicitud(int ID, int matricula, String fchSolicitada, String fchRespuesta, Carrera sol, char status) {
+    public Solicitud(int ID, String fchSolicitada, String fchRespuesta, Alumno al,Carrera sol, Status status) {
         this.ID = ID;
-        Matricula = matricula;
         this.fchSolicitada = fchSolicitada;
         this.fchRespuesta = fchRespuesta;
         this.sol = sol;
         this.status = status;
+        this.al=al;
     }
 
     public int getID() {
@@ -29,12 +30,12 @@ public class Solicitud implements Serializable {
         this.ID = ID;
     }
 
-    public int getMatricula() {
-        return Matricula;
+    public Alumno getAl() {
+        return al;
     }
 
-    public void setMatricula(int matricula) {
-        Matricula = matricula;
+    public void setAl(Alumno al) {
+        this.al = al;
     }
 
     public String getFchSolicitada() {
@@ -61,11 +62,11 @@ public class Solicitud implements Serializable {
         this.sol = sol;
     }
 
-    public char getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

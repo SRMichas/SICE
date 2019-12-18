@@ -14,6 +14,7 @@ import com.sorezel.sice.Entities.*;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class LocalHelper2 extends SQLiteOpenHelper {
 
@@ -52,7 +53,7 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             }else{
                 //By calling this method and empty database will be created into the default system path
                 //of your application so we are gonna be able to overwrite that database with our database.
-                this.getReadableDatabase();
+                this.getWritableDatabase();
                 copyDataBase();
             }
         }
@@ -66,7 +67,7 @@ public class LocalHelper2 extends SQLiteOpenHelper {
         SQLiteDatabase checkDB = null;
         try{
             String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
         }catch(SQLiteException e){ /*database does't exist yet.*/ }
 
         if(checkDB != null){
@@ -148,23 +149,93 @@ public class LocalHelper2 extends SQLiteOpenHelper {
         }
 
         private Escolares retEsc(String[] dat) {
-            return null;
+            Escolares esc = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM JefeServicios " +
+                            "WHERE JefSID = ? and Contraseña = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                esc = new Escolares(id,n,ap,ap,ps);
+            }
+            c.close();
+            return esc;
         }
 
         private JefeDepartamento retJefeDep(String[] dat) {
-            return null;
+            JefeDepartamento jd = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM JefeDivisiones " +
+                            "WHERE JefDID = ? and Contraseña = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                jd = new JefeDepartamento(id,n,ap,ap,ps);
+            }
+            c.close();
+            return jd;
         }
 
         private JefeAcademia retJefeAc(String[] dat) {
-            return null;
+            JefeAcademia ja = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM JefeAcademicos " +
+                            "WHERE JefAID = ? and Contraseña = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                ja = new JefeAcademia(id,n,ap,ap,ps);
+            }
+            c.close();
+            return ja;
         }
 
         private Coordinador retCoord(String[] dat) {
-            return null;
+            Coordinador coo = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Coordinadores " +
+                            "WHERE CoordID = ? and Contraseña = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                coo = new Coordinador(id,n,ap,ap,ps);
+            }
+            c.close();
+            return coo;
         }
 
         private Maestro retMaestro(String[] dat) {
-            return null;
+            Maestro ma = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Maestros " +
+                            "WHERE MaestroID = ? and Contraseña = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                ma = new Maestro(id,n,ap,ap,ps);
+            }
+            c.close();
+            return ma;
         }
 
         public Alumno retAlumno(String[] dat){
@@ -235,8 +306,120 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             c.close();
             return coo;
         }
+
+        public Solicitud retSolbyAlumn(String[] dat) {
+            Solicitud sol = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Solicitudes WHERE Matricula = ?"
+                    ,dat);
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String fchs=c.getString(1),fchr=c.getString(2);
+                Alumno al = retAlumno(c.getInt(3));
+                Carrera car = retCarrera(new String[]{""+c.getInt(4)});
+                Status s=retStatus(c.getInt(5));
+                sol = new Solicitud(id,fchs,fchr,al,car,s);
+            }
+            c.close();
+            return sol;
+        }
+
+        private Status retStatus(int sid) {
+            Status s = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Status WHERE StatusID = ?",
+                    new String[]{""+sid});
+            if( c.moveToLast()){
+                short id=(short)c.getInt(0);
+                String sig=c.getString(1);
+                s = new Status(id,sig);
+            }
+            c.close();
+            return s;
+        }
+
+        private Alumno retAlumno(int sid) {
+            Alumno al = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Alumnos WHERE Matricula = ?"
+                    ,new String[]{""+sid});
+            if( c.moveToLast()){
+                int id = c.getInt(0);
+                String n = c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        p=c.getString(7);
+                short s=(short)c.getInt(4);
+                Carrera ca = retCarrera(new String[]{""+c.getInt(5)});
+                PlanEstudio pl = retPlan(new String[]{""+c.getInt(6)});
+
+                al = new Alumno(id,n,ap,am,p,s,ca);
+            }
+            c.close();
+            return al;
+        }
+
+        public ArrayList<Carrera> retCarreras() {
+            ArrayList<Carrera> carreras = null;
+            Carrera car = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Carreras",null);
+            if( c.moveToFirst()){
+                carreras = new ArrayList<>();
+                int id;
+                String n;
+                Coordinador coo;
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    coo=retCoord(c.getInt(2));
+                    car = new Carrera(id,n,coo);
+                    carreras.add(car);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return carreras;
+        }
+        public ArrayList<Materia> retMaterias(int sid){
+            ArrayList<Materia> materias = null;
+            Materia mat = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT k.MateriaID,m.Nombre,k.Creditos,k.Calificacion " +
+                            "FROM Kardex k " +
+                            "INNER JOIN Materias m on k.MateriaID = m.MateriaID " +
+                            "INNER JOIN Alumnos a on k.Matricula = a.Matricula " +
+                            "WHERE k.Matricula = ?",
+                    new String[]{""+sid});
+            if( c.moveToFirst()){
+                materias = new ArrayList<>();
+                int id;
+                String n;
+                short ca,cr;
+                short cred,cal;
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    cred=(short)c.getInt(2);
+                    cal=(short)c.getInt(3);
+                    mat = new Materia(id,n,cred,cal);
+                    materias.add(mat);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return materias;
+        }
     }
     public class Insersiones{
+
+        public void insertSol(String[] d){
+            //Cursor c = myDataBase.rawQuery("INSERT INTO Solicitudes VALUES (?,?,?,?,?,?)",d);
+            String sent = "INSERT INTO Solicitudes VALUES (?,?,?,?,?,?)";
+            myDataBase.execSQL(sent,d);
+
+
+        }
 
     }
     public class Actualizaciones{
@@ -244,5 +427,12 @@ public class LocalHelper2 extends SQLiteOpenHelper {
     }
     public class Eliminaciones{
 
+        public void deleteSol(int solid){
+
+            /*Cursor c = myDataBase.rawQuery(
+                    "DELETE FROM Solicitudes WHERE SolID = ? "
+                    ,new String[]{""+solid});*/
+            myDataBase.delete("Solicitudes","SolID=?",new String[]{""+solid});
+        }
     }
 }

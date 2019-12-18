@@ -1,6 +1,8 @@
 package com.sorezel.sice.Entities;
 
-public class JefeDepartamento {
+import java.io.Serializable;
+
+public class JefeDepartamento implements Serializable {
 
     int ID;
     String Nombre,ApePat,ApeMat,Contraseña;
