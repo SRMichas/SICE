@@ -23,6 +23,7 @@ import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.Fragments.AlmunoStartFragment;
 import com.sorezel.sice.Fragments.FormFragment;
 import com.sorezel.sice.Fragments.KardexFragment;
+import com.sorezel.sice.Fragments.LoadingFragment;
 import com.sorezel.sice.Fragments.StatusFragment;
 
 public class AlumnoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,36 +82,40 @@ public class AlumnoActivity extends AppCompatActivity implements NavigationView.
         //SharedPreferences sh = getSharedPreferences("Usuario",0);
         Fragment fragment = null;
         Bundle b = new Bundle();
-
+        Solicitud sol;
         switch (id){
             case R.id.alum_home:
-
+                fragM.popBackStack("HOME",0);
                 break;
             case R.id.alum_form:
 
-                Solicitud sol = selects.retSolbyAlumn(new String[]{""+al.getMatricula()});
+                sol = selects.retSolbyAlumn(new String[]{""+al.getMatricula()});
 
                 if( sol == null ){
                     fragment = new FormFragment();
                     b.putSerializable("user",al);
                     fragment.setArguments(b);
-                    fragM.beginTransaction().replace(R.id.alumno_container,fragment).addToBackStack("FORM").commit();
+                    fragM.beginTransaction().replace(R.id.alumno_container,fragment)
+                            .addToBackStack("FORM").commit();
                 }else{
                     Snackbar.make(DWL,"Ya tienes una solicitud activa, revisala",Snackbar.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.alum_edo:
-                fragment = new StatusFragment();
-
+                fragment = new LoadingFragment();
+                b.putChar("key",'6');
+                b.putInt("uid",al.getMatricula());
                 fragment.setArguments(b);
-                fragM.beginTransaction().replace(R.id.alumno_container,fragment).addToBackStack("STA").commit();
+                fragM.beginTransaction().replace(R.id.alumno_container,fragment)
+                        .addToBackStack("LOAD").commit();
                 break;
             case R.id.alum_kardex:
                 fragment = new KardexFragment();
                 b.putInt("uid",al.getMatricula());
                 fragment.setArguments(b);
-                fragM.beginTransaction().replace(R.id.alumno_container,fragment).addToBackStack("KDX").commit();
+                fragM.beginTransaction().replace(R.id.alumno_container,fragment).
+                        addToBackStack("KDX").commit();
                 break;
             case R.id.reset:
                 reset();

@@ -1,6 +1,8 @@
 package com.sorezel.sice.Fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Materia;
+import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.R;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class LoadingFragment extends Fragment {
 
     LocalHelper2.Consultas selects;
     View v;
+    private Fragment fragment = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,8 +34,9 @@ public class LoadingFragment extends Fragment {
             LocalHelper2 helper = new LocalHelper2(getActivity());
             helper.openDataBase();
             selects = helper.new Consultas();
-            final Fragment fragment = null;
+
             final Bundle b2 = new Bundle();
+            final Handler handler = new Handler();
             switch (control){
                 case '1':
                     break;
@@ -61,6 +66,35 @@ public class LoadingFragment extends Fragment {
                 case '5': //kardex 2 pg
                     break;
                 case '6':
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final Solicitud sol = selects.retSolbyAlumn(new String[]{""+b.getInt("uid")});
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if( sol != null){
+                                        fragment = new StatusFragment();
+                                        b2.putSerializable("sol",sol);
+                                        b2.putBoolean("edo",true);
+                                    }else{
+                                        //No solicitud
+                                        fragment = new MultiFragment();
+                                        b2.putInt("img",R.drawable.ic_accessibility);
+                                        b2.putString("msg","No tienes solicitudes activas por el momento!!");
+                                    }
+                                    fragment.setArguments(b2);
+                                    getActivity().getSupportFragmentManager().beginTransaction().
+                                            replace(R.id.alumno_container,fragment).addToBackStack("EDO").commit();
+                                }
+                            });
+                        }
+                    }).start();
                     break;
                 case '7':
                     break;

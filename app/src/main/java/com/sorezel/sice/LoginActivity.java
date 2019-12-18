@@ -92,11 +92,11 @@ public class LoginActivity extends AppCompatActivity {
                         ,Snackbar.LENGTH_SHORT).show();
                 return;
             }
-            Snackbar.make(findViewById(R.id.login_ingresar),
+            /*Snackbar.make(findViewById(R.id.login_ingresar),
                     "Ingreso: "+d
-                    ,Snackbar.LENGTH_SHORT).show();
+                    ,Snackbar.LENGTH_SHORT).show();*/
             startActivity(intent);
-            clearTxt();
+            //clearTxt();
         }else{
             Snackbar.make(findViewById(R.id.login_ingresar),
                     "llene los campos faltantes"
@@ -120,5 +120,11 @@ public class LoginActivity extends AppCompatActivity {
         } catch (SQLException mSQLException) {
             throw mSQLException;
         }
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        clearTxt();
     }
 }

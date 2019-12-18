@@ -9,15 +9,26 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Tu solicitud se encuentra en proceso"
-        android:textSize="40.0dip" />
+        android:text="Tu solicitud se encuentra:"
+        android:textSize="36sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/alum_txvgf_pro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="[msg]"
+        android:textSize="32sp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:layout_width="280.0sp"
         android:layout_height="280.0sp"
         android:layout_gravity="center"
-        android:layout_marginTop="10.0dip"
-        android:layout_marginBottom="10.0dip"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/red" />
 
     <TextView
@@ -25,5 +36,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="espere pacientemente!!"
-        android:textSize="30.0dip" />
+        android:textSize="30sp" />
 </LinearLayout>
