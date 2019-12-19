@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/solList"
+        android:id="@+id/work_list_sol"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 </LinearLayout>

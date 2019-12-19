@@ -252,7 +252,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="5.0"
             android:text="Rechazar Solicitud"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:onClick="reject"/>
 
         <Button
             android:id="@+id/btnAceSol"
@@ -261,6 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="5.0"
             android:text="Aceptar Solicitud"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:onClick="accept"/>
     </LinearLayout>
 </LinearLayout>

@@ -246,8 +246,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recy_mat"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/contenedorMaestro"
@@ -345,7 +345,7 @@
                 android:layout_marginLeft="50.0dip"
                 android:layout_marginRight="30.0dip"
                 android:layout_weight="1.0"
-                android:onClick="aceptar"
+                android:onClick="makeChange"
                 android:text="Aceptar" />
         </LinearLayout>
     </LinearLayout>

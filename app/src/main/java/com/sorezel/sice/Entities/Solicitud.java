@@ -7,7 +7,7 @@ public class Solicitud implements Serializable {
     int ID;
     String fchSolicitada,fchRespuesta;
     Alumno al;
-    Carrera sol;
+    Carrera carrera;
     Status status;
 
     public Solicitud() {
@@ -17,7 +17,7 @@ public class Solicitud implements Serializable {
         this.ID = ID;
         this.fchSolicitada = fchSolicitada;
         this.fchRespuesta = fchRespuesta;
-        this.sol = sol;
+        this.carrera = sol;
         this.status = status;
         this.al=al;
     }
@@ -54,12 +54,12 @@ public class Solicitud implements Serializable {
         this.fchRespuesta = fchRespuesta;
     }
 
-    public Carrera getSol() {
-        return sol;
+    public Carrera getCarrera() {
+        return carrera;
     }
 
-    public void setSol(Carrera sol) {
-        this.sol = sol;
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
     }
 
     public Status getStatus() {

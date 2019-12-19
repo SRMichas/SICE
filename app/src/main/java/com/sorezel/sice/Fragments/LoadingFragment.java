@@ -23,6 +23,7 @@ public class LoadingFragment extends Fragment {
     LocalHelper2.Consultas selects;
     View v;
     private Fragment fragment = null;
+    ArrayList<Solicitud> solicituds;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,9 +97,55 @@ public class LoadingFragment extends Fragment {
                         }
                     }).start();
                     break;
-                case '7':
+                case '7': //list of request
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            solicituds = selects.retSolsbyAlum(b.getInt("uid"),'1');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    algo2(fragment,b,0);
+                                    //switchFrag(R.id.work_container,fragment,"S");
+                                }
+                            });
+                        }
+                    }).start();
                     break;
-                case '8':
+                case '8': //list of convalidate
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            solicituds = selects.retSolsbyAlum(b.getInt("uid"),'7');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    /*if (solicituds != null){
+                                        fragment = new WorkerListFragment();
+                                        b.putSerializable("sols",solicituds);
+                                    }else{
+                                        //no solicitud
+                                        fragment = new MultiFragment();
+                                        b2.putInt("img",R.drawable.ic_mail_outline);
+                                        b2.putString("msg","No hay Solictudes Pendientes");
+                                    }
+                                    fragment.setArguments(b);*/
+                                    algo2(fragment,b,1);
+                                    //switchFrag(R.id.work_container,fragment,"S");
+                                }
+                            });
+                        }
+                    }).start();
                     break;
                 case '9':
                     break;
@@ -124,4 +171,27 @@ public class LoadingFragment extends Fragment {
         ((KardexFragment)getParentFragment()).refresh(fragment,0);
         //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.alumno_container,fragment).commit();
     }
+    private void algo2(Fragment fragment,Bundle b,int idx){
+
+        if (solicituds != null){
+            fragment = new WorkerListFragment();
+            b.putSerializable("sols",solicituds);
+            b.putChar("type",'1');
+        }else{
+            //no solicitud
+            fragment = new MultiFragment();
+            b.putInt("img",R.drawable.ic_mail_outline);
+            b.putString("msg","No hay Solictudes Pendientes");
+        }
+        fragment.setArguments(b);
+
+
+        ((WorkSolicitudesFragment)getParentFragment()).refresh(fragment,idx);
+        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.alumno_container,fragment).commit();
+    }
+    private void switchFrag(int container,Fragment fragment,String msg){
+        getActivity().getSupportFragmentManager().beginTransaction().
+                replace(container,fragment).addToBackStack(msg).commit();
+    }
+
 }

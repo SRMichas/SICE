@@ -9,13 +9,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+        <!--<androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_coord"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/tool_color"
             android:theme="@style/ToolbarTheme"
-            app:titleTextColor="@android:color/white" />
+            app:titleTextColor="@android:color/white" />-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablay_coord"
@@ -32,7 +32,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/Pager"
+        android:id="@+id/work_pager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 </LinearLayout>

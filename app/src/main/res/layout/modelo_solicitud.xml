@@ -19,6 +19,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/sol_icon"
                 android:layout_width="90.0dip"
                 android:layout_height="90.0dip"
                 android:layout_marginRight="10.0dip"

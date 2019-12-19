@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class LocalHelper2 extends SQLiteOpenHelper {
 
@@ -410,25 +411,153 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             c.close();
             return materias;
         }
+
+        public ArrayList<Solicitud> retSolsbyAlum(int uid, char car) {
+            ArrayList<Solicitud> sols = null;
+            Solicitud sol;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT s.* " +
+                            "FROM Solicitudes s " +
+                            "INNER JOIN Carreras ca ON s.CarrSol = ca.CarreraID " +
+                            "INNER JOIN Coordinadores co ON ca.CoordinadorID = co.CoordID " +
+                            "WHERE co.CoordID = ? and s.Status = ?",
+                    new String[]{""+uid,""+car});
+            if( c.moveToFirst()){
+                sols = new ArrayList<>();
+                int id;
+                String fh1,fh2;
+                Alumno al;
+                Carrera carr;
+                Status s;
+
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    fh1=c.getString(1);
+                    fh2=c.getString(2);
+                    al=retAlumno(c.getInt(3));
+                    carr=retCarrera(new String[]{""+c.getInt(4)});
+                    s=retStatus(c.getInt(5));
+                    sol = new Solicitud(id,fh1,fh2,al,carr,s);
+                    sols.add(sol);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return sols;
+        }
+
+        public ArrayList<Academia> retAcademias() {
+            ArrayList<Academia> sols = null;
+            Academia acad;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Academia", null);
+            if( c.moveToFirst()){
+                sols = new ArrayList<>();
+                int id;
+                String n;
+                JefeAcademia cad;
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    cad=retJefeAc(c.getInt(2));
+                    acad = new Academia(id,n,cad);
+                    sols.add(acad);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return sols;
+        }
+
+        private JefeAcademia retJefeAc(int uid) {
+            JefeAcademia ja = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM JefeAcademicos " +
+                            "WHERE JefAID = ?"
+                    ,new String[]{""+uid});
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                ja = new JefeAcademia(id,n,ap,ap,ps);
+            }
+            c.close();
+            return ja;
+        }
+
+        public Map<Character, Object> retMateriasC(int sid,int mid) {
+            Map<Character, Object> data = null;
+            ArrayList<Materia> m1,m2;
+            ArrayList<Boolean> some;
+            ArrayList<Integer> por;
+            Materia ma1,ma2;
+            boolean fua;
+
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT * FROM Academia", null);
+            if( c.moveToFirst()){
+                m1 = new ArrayList<>();
+                m2 = new ArrayList<>();
+                some = new ArrayList<>();
+                por = new ArrayList<>();
+                int id;
+                String n;
+                short cr,ca,acept;
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    cr=(short) c.getInt(2);
+                    ca=(short)c.getInt(0);
+                    ma1=new Materia(id,n,cr,ca);
+                    m1.add(ma1);
+
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    cr=(short) c.getInt(2);
+                    ca=(short)c.getInt(0);
+                    ma2=new Materia(id,n,cr,ca);
+                    m2.add(ma2);
+
+                    por.add(c.getInt(0));
+
+                    acept = (short)c.getInt(0);
+                    fua = (acept == 1);
+                    some.add(fua);
+
+                    c.moveToNext();
+                }
+                data.put('1',m1);
+                data.put('2',m2);
+                data.put('3',some);
+                data.put('4',por);
+            }
+            c.close();
+
+            return data;
+        }
     }
     public class Insersiones{
-
         public void insertSol(String[] d){
             //Cursor c = myDataBase.rawQuery("INSERT INTO Solicitudes VALUES (?,?,?,?,?,?)",d);
             String sent = "INSERT INTO Solicitudes VALUES (?,?,?,?,?,?)";
             myDataBase.execSQL(sent,d);
-
-
         }
 
+        public void insertAsig(String[] newData2) {
+            String sent = "INSERT INTO Asignacion VALUES (?,?,0)";
+            myDataBase.execSQL(sent,newData2);
+        }
     }
     public class Actualizaciones{
-
+        public void updateSol(String[] newData) {
+            String sentence = "UPDATE Solicitudes SET Status = ? WHERE SolID = ? and Matricula = ? and Status = ?";
+            myDataBase.execSQL(sentence,newData);
+        }
     }
     public class Eliminaciones{
-
         public void deleteSol(int solid){
-
             /*Cursor c = myDataBase.rawQuery(
                     "DELETE FROM Solicitudes WHERE SolID = ? "
                     ,new String[]{""+solid});*/

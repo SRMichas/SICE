@@ -17,6 +17,8 @@ import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Carrera;
 import com.sorezel.sice.R;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -106,8 +108,10 @@ public class FormFragment extends Fragment {
                         public void run() {
                             Snackbar.make(v.findViewById(R.id.btn_aceptar),"Se inserto!!!",Snackbar.LENGTH_SHORT).show();
                             Date currentTime = Calendar.getInstance().getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                            String formattedDate = df.format(currentTime);
 
-                            String[] data = {""+4,currentTime.toString(),"",""+al.getMatricula(),""+carreras.get(spCarr.getSelectedItemPosition()-1).getID(),""+1};
+                            String[] data = {""+4,formattedDate,"",""+al.getMatricula(),""+carreras.get(spCarr.getSelectedItemPosition()-1).getID(),""+1};
                             inserts.insertSol(data);
                             getActivity().onBackPressed();
                         }
