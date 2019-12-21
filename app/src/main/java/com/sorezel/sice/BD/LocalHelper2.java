@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LocalHelper2 extends SQLiteOpenHelper {
@@ -445,6 +446,39 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             c.close();
             return sols;
         }
+        public ArrayList<Solicitud> retSolsbyAlum2(int uid, char car) {
+            ArrayList<Solicitud> sols = null;
+            Solicitud sol;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT s.* " +
+                            "FROM Solicitudes s " +
+                            "INNER JOIN Carreras ca ON s.CarrSol = ca.CarreraID " +
+                            "INNER JOIN Coordinadores co ON ca.CoordinadorID = co.CoordID " +
+                            "WHERE s.Status = ?",
+                    new String[]{""+car});
+            if( c.moveToFirst()){
+                sols = new ArrayList<>();
+                int id;
+                String fh1,fh2;
+                Alumno al;
+                Carrera carr;
+                Status s;
+
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    fh1=c.getString(1);
+                    fh2=c.getString(2);
+                    al=retAlumno(c.getInt(3));
+                    carr=retCarrera(new String[]{""+c.getInt(4)});
+                    s=retStatus(c.getInt(5));
+                    sol = new Solicitud(id,fh1,fh2,al,carr,s);
+                    sols.add(sol);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return sols;
+        }
 
         public ArrayList<Academia> retAcademias() {
             ArrayList<Academia> sols = null;
@@ -487,17 +521,29 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             return ja;
         }
 
-        public Map<Character, Object> retMateriasC(int sid,int mid) {
+        public Map<Character, Object> retMateriasC(String[] iData) {
             Map<Character, Object> data = null;
             ArrayList<Materia> m1,m2;
             ArrayList<Boolean> some;
             ArrayList<Integer> por;
             Materia ma1,ma2;
             boolean fua;
+            Solicitud sol;
 
             Cursor c = myDataBase.rawQuery(
-                    "SELECT * FROM Academia", null);
+                    "SELECT m.MateriaID,m.Nombre,k.Creditos,k.Calificacion," +
+                            "ds.MateriaC,m2.Nombre,m2.Creditos,ds.Calificacion," +
+                            "ds.Porcentaje,ds.Aceptada " +
+                            "FROM DetalleSolicitud ds " +
+                            "INNER JOIN Solicitudes s ON ds.SolID = s.SolID " +
+                            "INNER JOIN Kardex k ON ds.MateriaID = k.MateriaID " +
+                            "INNER JOIN Materias m ON k.MateriaID = m.MateriaID " +
+                            "INNER JOIN Alumnos a ON k.Matricula = a.Matricula " +
+                            "INNER JOIN Materias m2 ON ds.MateriaC = m2.MateriaID " +
+                            "WHERE s.SolID = ? and s.Matricula = ? and s.Status = ?",
+                    iData);
             if( c.moveToFirst()){
+                data = new HashMap<>();
                 m1 = new ArrayList<>();
                 m2 = new ArrayList<>();
                 some = new ArrayList<>();
@@ -505,24 +551,25 @@ public class LocalHelper2 extends SQLiteOpenHelper {
                 int id;
                 String n;
                 short cr,ca,acept;
+                //sol=retSol
                 while(!c.isAfterLast()){
                     id=c.getInt(0);
                     n=c.getString(1);
                     cr=(short) c.getInt(2);
-                    ca=(short)c.getInt(0);
+                    ca=(short)c.getInt(3);
                     ma1=new Materia(id,n,cr,ca);
                     m1.add(ma1);
 
-                    id=c.getInt(0);
-                    n=c.getString(1);
-                    cr=(short) c.getInt(2);
-                    ca=(short)c.getInt(0);
+                    id=c.getInt(4);
+                    n=c.getString(5);
+                    cr=(short) c.getInt(6);
+                    ca=(short)c.getInt(7);
                     ma2=new Materia(id,n,cr,ca);
                     m2.add(ma2);
 
-                    por.add(c.getInt(0));
+                    por.add(c.getInt(8));
 
-                    acept = (short)c.getInt(0);
+                    acept = (short)c.getInt(9);
                     fua = (acept == 1);
                     some.add(fua);
 
@@ -537,6 +584,93 @@ public class LocalHelper2 extends SQLiteOpenHelper {
 
             return data;
         }
+
+        private Materia retMateria(int anInt) {
+            Materia mat = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT k.MateriaID,m.Nombre,k.Creditos,k.Calificacion " +
+                            "FROM Kardex k " +
+                            "INNER JOIN Materias m on k.MateriaID = m.MateriaID " +
+                            "INNER JOIN Alumnos a on k.Matricula = a.Matricula " +
+                            "WHERE k.Matricula = ? and m.MateriaID = ?",
+                    new String[]{""+anInt});
+            if( c.moveToFirst()){
+                int id;
+                String n;
+                short ca,cr;
+                short cred,cal;
+                id=c.getInt(0);
+                n=c.getString(1);
+                cred=(short)c.getInt(2);
+                cal=(short)c.getInt(3);
+                mat = new Materia(id,n,cred,cal);
+            }
+            c.close();
+            return mat;
+        }
+
+
+        public ArrayList<Maestro> retMaestrosPerAcade(int uid) {
+            ArrayList<Maestro> mstros = null;
+            Maestro mstro;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT m.* FROM MaestrosAcademia ma " +
+                            "INNER JOIN Maestros m ON ma.MaestroID = m.MaestroID " +
+                            "INNER JOIN Academia a ON ma.ID = a.ID " +
+                            "WHERE a.JefeA = ?",
+                    new String[]{""+uid});
+            if( c.moveToFirst()){
+                mstros = new ArrayList<>();
+                int id;
+                String n,ap,am,pa;
+                while(!c.isAfterLast()){
+                    id=c.getInt(0);
+                    n=c.getString(1);
+                    ap=c.getString(2);
+                    am=c.getString(3);
+                    pa=c.getString(4);
+                    mstro = new Maestro(id,n,ap,am,pa);
+                    mstros.add(mstro);
+                    c.moveToNext();
+                }
+            }
+            c.close();
+            return mstros;
+
+        }
+
+        public int getAcadByBoss(int id) {
+            int data = 0;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT ID FROM Academia WHERE JefeA = ?",
+                    new String[]{""+id});
+            if( c.moveToLast())
+                data = c.getInt(0);
+            c.close();
+            return data;
+        }
+
+        public Maestro retDosId(String[] data) {
+            Maestro ma = null;
+            Cursor c = myDataBase.rawQuery(
+                    "SELECT m.* " +
+                            "FROM DetalleSolicitud ds " +
+                            "INNER JOIN Solicitudes s ON ds.SolID = s.SolID " +
+                            "INNER JOIN Maestros m ON ds.MaestroID = m.MaestroID " +
+                            "WHERE s.SolID = ? and s.Matricula = ? and s.Status = ?",
+                    data);
+
+            if( c.moveToLast() ){
+                int id=c.getInt(0);
+                String n=c.getString(1),
+                        ap=c.getString(2),
+                        am=c.getString(3),
+                        ps=c.getString(4);
+                ma = new Maestro(id,n,ap,ap,ps);
+            }
+            c.close();
+            return ma;
+        }
     }
     public class Insersiones{
         public void insertSol(String[] d){
@@ -549,11 +683,21 @@ public class LocalHelper2 extends SQLiteOpenHelper {
             String sent = "INSERT INTO Asignacion VALUES (?,?,0)";
             myDataBase.execSQL(sent,newData2);
         }
+
+        public void insertDetSol(String[] newD2) {
+            String sent = "INSERT INTO DetalleSolicitud VALUES (?,?,?,?,?,?,?)";
+            myDataBase.execSQL(sent,newD2);
+        }
     }
     public class Actualizaciones{
         public void updateSol(String[] newData) {
             String sentence = "UPDATE Solicitudes SET Status = ? WHERE SolID = ? and Matricula = ? and Status = ?";
             myDataBase.execSQL(sentence,newData);
+        }
+
+        public void updateAsig(String[] newData2) {
+            String sentence = "UPDATE Asignacion SET MaestroID = ? WHERE AcaID = ? and SolID = ?";
+            myDataBase.execSQL(sentence,newData2);
         }
     }
     public class Eliminaciones{
@@ -562,6 +706,10 @@ public class LocalHelper2 extends SQLiteOpenHelper {
                     "DELETE FROM Solicitudes WHERE SolID = ? "
                     ,new String[]{""+solid});*/
             myDataBase.delete("Solicitudes","SolID=?",new String[]{""+solid});
+            clearAsignacion();
+        }
+        public void clearAsignacion(){
+            myDataBase.delete("Asignacion",null,null);
         }
     }
 }

@@ -1,11 +1,14 @@
 package com.sorezel.sice;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +16,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.snackbar.Snackbar;
 import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Academia;
+import com.sorezel.sice.Entities.Coordinador;
+import com.sorezel.sice.Entities.JefeAcademia;
+import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Solicitud;
 
 import java.util.ArrayList;
@@ -21,11 +27,14 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
 
     private TextView txvN,txvI,txvNC,txvS,txvC1,txvC1C,txvC2,txvC2C,txvF,txvFch;
     private Spinner spOption;
+    Button btnR,btnA;
     private Solicitud sol;
     private LocalHelper2.Actualizaciones updates;
     private LocalHelper2.Consultas selects;
     private LocalHelper2.Insersiones inserts;
     ArrayList<Academia> academys;
+    ArrayList<Maestro> maestros;
+    Object user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +48,7 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
         inserts = helper.new Insersiones();
 
         sol = (Solicitud) getIntent().getSerializableExtra("sol");
+        user = getIntent().getSerializableExtra("user");
 
         Toolbar tb = findViewById(R.id.detsol_tool);
         setSupportActionBar(tb);
@@ -60,6 +70,8 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
         txvF = findViewById(R.id.tvalumFirma);
         txvFch = findViewById(R.id.fch);
         spOption = findViewById(R.id.sp_acade);
+        btnR = findViewById(R.id.btnReSol);
+        btnA = findViewById(R.id.btnAceSol);
     }
     private void fillData(){
         txvN.setText(sol.getAl().nombreCompleto());
@@ -72,15 +84,26 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
         txvC2C.setText(""+sol.getCarrera().getID());
         txvF.setText(sol.getAl().nombreCompleto());
         txvFch.setText(sol.getFchSolicitada());
+        if( user instanceof JefeAcademia)
+            btnR.setVisibility(View.GONE);
         fillSpinner();
     }
     private void fillSpinner(){
         ArrayList<String> data=new ArrayList<>();
-        academys = selects.retAcademias();
-        data.add("--Seleccione una Cadema");
-        for (Academia a: academys){
-            data.add(a.getNombre());
+        if( user instanceof Coordinador){
+            academys = selects.retAcademias();
+            data.add("--Seleccione una Academia");
+            for (Academia a: academys){
+                data.add(a.getNombre());
+            }
+        }else{
+            maestros = selects.retMaestrosPerAcade(((JefeAcademia)user).getID());
+            data.add("--Seleccione un(a) Maestro(a)");
+            for (Maestro a: maestros){
+                data.add(a.nombreCompleto());
+            }
         }
+
         ArrayAdapter<String> spadapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -88,6 +111,17 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
         );
         spOption.setAdapter(spadapter);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void reject(View v){
         String[] newData = {"3",""+sol.getID(),""+sol.getAl().getMatricula(),"1"};
@@ -97,10 +131,20 @@ public class DetalleSolicitudActivity extends AppCompatActivity {
     public void accept(View v){
         short index = (short)spOption.getSelectedItemPosition();
         if( index > 0){
-            String[] newData = {"4",""+sol.getID(),""+sol.getAl().getMatricula(),"1"};
-            updates.updateSol(newData);
-            String[] newData2 = {""+academys.get(index).getJaca().getID(),""+sol.getID()};
-            inserts.insertAsig(newData2);
+            index--;
+            if( user instanceof Coordinador){
+                String[] newData = {"4",""+sol.getID(),""+sol.getAl().getMatricula(),"1"};
+                updates.updateSol(newData);
+                String[] newData2 = {""+academys.get(index).getJaca().getID(),""+sol.getID()};
+                inserts.insertAsig(newData2);
+            }else{
+                JefeAcademia ja = (JefeAcademia) user;
+                String[] newData = {"5",""+sol.getID(),""+sol.getAl().getMatricula(),"4"};
+                updates.updateSol(newData);
+                int acaid=selects.getAcadByBoss(ja.getID());
+                String[] newData2 = {""+maestros.get(index).getID(),""+acaid,""+sol.getID()};
+                updates.updateAsig(newData2);
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

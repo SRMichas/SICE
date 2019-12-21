@@ -22,6 +22,7 @@ public class WorkSolicitudesFragment extends Fragment {
     private TabLayout tbl;
     private ViewPager vp;
     private WorkerAdapter am;
+    private char ty1,ty2;
 
     @Nullable
     @Override
@@ -31,7 +32,8 @@ public class WorkSolicitudesFragment extends Fragment {
         if( getArguments() != null){
             Bundle b = getArguments();
             uid = b.getInt("uid");
-
+            ty1 = b.getChar("swv1");
+            ty2 = b.getChar("swv2");
             tbl = v.findViewById(R.id.tablay_coord);
             vp = v.findViewById(R.id.work_pager);
 
@@ -48,12 +50,12 @@ public class WorkSolicitudesFragment extends Fragment {
         LoadingFragment ld1 = new LoadingFragment(),
                 ld2 = new LoadingFragment();
 
-        b.putChar("key",'7');
+        b.putChar("key",ty1);
         b.putInt("uid",uid);
         b.putSerializable("user",getArguments().getSerializable("user"));
         ld1.setArguments(b);
 
-        b2.putChar("key",'8');
+        b2.putChar("key",ty2);
         b2.putInt("uid",uid);
         b2.putSerializable("user",getArguments().getSerializable("user"));
         ld2.setArguments(b2);

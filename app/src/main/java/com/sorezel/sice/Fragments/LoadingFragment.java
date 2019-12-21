@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.Entities.JefeDepartamento;
+import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.R;
@@ -24,6 +26,7 @@ public class LoadingFragment extends Fragment {
     View v;
     private Fragment fragment = null;
     ArrayList<Solicitud> solicituds;
+    Object user;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -110,8 +113,7 @@ public class LoadingFragment extends Fragment {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    algo2(fragment,b,0);
-                                    //switchFrag(R.id.work_container,fragment,"S");
+                                    algo2(fragment,b,0,'1');
                                 }
                             });
                         }
@@ -140,7 +142,7 @@ public class LoadingFragment extends Fragment {
                                         b2.putString("msg","No hay Solictudes Pendientes");
                                     }
                                     fragment.setArguments(b);*/
-                                    algo2(fragment,b,1);
+                                    algo2(fragment,b,1,'2');
                                     //switchFrag(R.id.work_container,fragment,"S");
                                 }
                             });
@@ -148,12 +150,93 @@ public class LoadingFragment extends Fragment {
                     }).start();
                     break;
                 case '9':
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            solicituds = selects.retSolsbyAlum2(b.getInt("uid"),'4');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    algo2(fragment,b,0,'1');
+                                }
+                            });
+                        }
+                    }).start();
                     break;
                 case '0':
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            solicituds = selects.retSolsbyAlum2(b.getInt("uid"),'6');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    algo2(fragment,b,1,'2');
+                                }
+                            });
+                        }
+                    }).start();
                     break;
-                case 'a':
+                case 'a'://Teacher list
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            user = b.getSerializable("user");
+                            solicituds = selects.retSolsbyAlum2(b.getInt("uid"),'5');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if( solicituds != null){
+                                        fragment = new WorkerListFragment();
+                                        b2.putSerializable("sols",solicituds);
+                                        b2.putSerializable("user",(Maestro)user);
+                                        b2.putChar("type",'1');
+                                    }else{
+                                        //No solicitud
+                                        fragment = new MultiFragment();
+                                        b2.putInt("img",R.drawable.ic_accessibility);
+                                        b2.putString("msg","No tienes solicitudes activas por el momento!!");
+                                    }
+                                    fragment.setArguments(b2);
+                                    switchFrag(R.id.work2_container,fragment,"LST");
+                                }
+                            });
+                        }
+                    }).start();
                     break;
-                case 'b':
+                case 'b'://
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            solicituds = selects.retSolsbyAlum2(b.getInt("uid"),'8');
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    algo2(fragment,b,1,'1');
+                                }
+                            });
+                        }
+                    }).start();
                     break;
                 case 'c':
                     break;
@@ -171,7 +254,25 @@ public class LoadingFragment extends Fragment {
         ((KardexFragment)getParentFragment()).refresh(fragment,0);
         //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.alumno_container,fragment).commit();
     }
-    private void algo2(Fragment fragment,Bundle b,int idx){
+    private void algo2(Fragment fragment,Bundle b,int idx,char type){
+
+        if (solicituds != null){
+            fragment = new WorkerListFragment();
+            b.putSerializable("sols",solicituds);
+            b.putChar("type",type);
+        }else{
+            //no solicitud
+            fragment = new MultiFragment();
+            b.putInt("img",R.drawable.ic_mail_outline);
+            b.putString("msg","No hay Solictudes Pendientes");
+        }
+        fragment.setArguments(b);
+
+
+        ((WorkSolicitudesFragment)getParentFragment()).refresh(fragment,idx);
+        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.alumno_container,fragment).commit();
+    }
+    private void algo3(Fragment fragment,Bundle b){
 
         if (solicituds != null){
             fragment = new WorkerListFragment();
@@ -186,7 +287,7 @@ public class LoadingFragment extends Fragment {
         fragment.setArguments(b);
 
 
-        ((WorkSolicitudesFragment)getParentFragment()).refresh(fragment,idx);
+        //((WorkSolicitudesFragment)getParentFragment()).refresh(fragment,idx);
         //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.alumno_container,fragment).commit();
     }
     private void switchFrag(int container,Fragment fragment,String msg){

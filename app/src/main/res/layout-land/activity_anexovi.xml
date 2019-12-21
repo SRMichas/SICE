@@ -345,7 +345,7 @@
                 android:layout_marginLeft="50.0dip"
                 android:layout_marginRight="30.0dip"
                 android:layout_weight="1.0"
-                android:onClick="makeChange"
+                android:onClick="makeChangeA"
                 android:text="Aceptar" />
         </LinearLayout>
     </LinearLayout>

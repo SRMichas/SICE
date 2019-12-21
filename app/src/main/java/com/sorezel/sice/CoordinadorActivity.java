@@ -69,7 +69,7 @@ public class CoordinadorActivity extends AppCompatActivity implements Navigation
         WorkerStartFragment wsf = new WorkerStartFragment();
         b.putSerializable("user",coord);
         wsf.setArguments(b);
-        fragM.beginTransaction().add(R.id.work_container,wsf)
+        fragM.beginTransaction().replace(R.id.work_container,wsf)
                 .addToBackStack("HOMEW").commit();
     }
 
@@ -88,6 +88,8 @@ public class CoordinadorActivity extends AppCompatActivity implements Navigation
                 fragment = new WorkSolicitudesFragment();
                 b.putInt("uid",coord.getID());
                 b.putSerializable("user",coord);
+                b.putChar("swv1",'7');
+                b.putChar("swv2",'8');
                 fragment.setArguments(b);
                 fragM.beginTransaction().replace(R.id.work_container,fragment).
                         addToBackStack("WK").commit();

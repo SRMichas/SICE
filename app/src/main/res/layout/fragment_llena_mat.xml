@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ScrollView
@@ -27,7 +27,7 @@
                     android:id="@+id/txt_nomAl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Soria Ramirez Elias Misael" />
+                    android:text="[prueba]" />
             </LinearLayout>
 
             <LinearLayout
@@ -44,7 +44,7 @@
                     android:id="@+id/txt_nomCar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ingenieria en Sistemas Computacionales" />
+                    android:text="[prueba]" />
             </LinearLayout>
 
             <LinearLayout
@@ -129,8 +129,7 @@
                     android:layout_weight="1.0"
                     android:gravity="center"
                     android:hint="clave materia"
-                    android:inputType="number"
-                    android:text="11001100" />
+                    android:inputType="number"/>
 
                 <EditText
                     android:id="@+id/nomMat2"
@@ -138,8 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
                     android:gravity="center"
-                    android:hint="nombre materia"
-                    android:text="Nombre Materia" />
+                    android:hint="nombre materia"/>
 
                 <EditText
                     android:id="@+id/calMat2"
@@ -148,8 +146,7 @@
                     android:layout_weight="1.2"
                     android:gravity="center"
                     android:hint="calificacion"
-                    android:inputType="number"
-                    android:text="100" />
+                    android:inputType="number"/>
             </LinearLayout>
 
             <LinearLayout
@@ -169,7 +166,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1.0" />
+                    android:layout_weight="1.0"
+                    android:entries="@array/tipos"/>
             </LinearLayout>
 
             <LinearLayout
@@ -207,8 +205,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/llena_recy"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

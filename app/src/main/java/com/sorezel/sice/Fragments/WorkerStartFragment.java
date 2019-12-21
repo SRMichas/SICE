@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.sorezel.sice.Entities.Coordinador;
+import com.sorezel.sice.Entities.JefeAcademia;
+import com.sorezel.sice.Entities.JefeDepartamento;
+import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.R;
 
 import java.io.Serializable;
@@ -35,6 +38,24 @@ public class WorkerStartFragment extends Fragment {
                 Coordinador coo = (Coordinador) s;
                 txvN.setText(coo.nombreCompleto());
                 edtNC.setText(""+coo.getID());
+                edtC.setText("");
+                edtI.setText("Tecnologico de Culiacan");
+            }else if ( s instanceof Maestro ){
+                Maestro tch = (Maestro) s;
+                txvN.setText(tch.nombreCompleto());
+                edtNC.setText(""+tch.getID());
+                edtC.setText("");
+                edtI.setText("Tecnologico de Culiacan");
+            }else if( s instanceof JefeAcademia){
+                JefeAcademia acadB = (JefeAcademia) s;
+                txvN.setText(acadB.nombreCompleto());
+                edtNC.setText(""+acadB.getID());
+                edtC.setText("");
+                edtI.setText("Tecnologico de Culiacan");
+            }else if( s instanceof JefeDepartamento){
+                JefeDepartamento depB = (JefeDepartamento) s;
+                txvN.setText(depB.nombreCompleto());
+                edtNC.setText(""+depB.getID());
                 edtC.setText("");
                 edtI.setText("Tecnologico de Culiacan");
             }

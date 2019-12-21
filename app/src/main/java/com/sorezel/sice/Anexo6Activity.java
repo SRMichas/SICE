@@ -16,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.sorezel.sice.Adapters.AnexoAdapter;
 import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Alumno;
+import com.sorezel.sice.Entities.JefeAcademia;
+import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
 
@@ -49,8 +51,9 @@ public class Anexo6Activity extends AppCompatActivity{
         selects = helper.new Consultas();
         updates = helper.new Actualizaciones();
 
-        al = (Alumno) getIntent().getSerializableExtra("student");
+        //al = (Alumno) getIntent().getSerializableExtra("student");
         sol = (Solicitud) getIntent().getSerializableExtra("sol");
+        al = sol.getAl();
         user = getIntent().getSerializableExtra("user");
 
         init();
@@ -83,24 +86,33 @@ public class Anexo6Activity extends AppCompatActivity{
         txvNP2.setText("2015");
         txvCP2.setText("1");
         txvIT2.setText("Culiacan");
-        edtA.setText("");
-        edtJA.setText("");
-        edtJD.setText("");
+
     }
     private void fillTable(){
         //analizada -> maestro
-        Map<Character,Object> map = selects.retMateriasC(sol.getID(),0);
+        String[] data = {""+sol.getID(),""+sol.getAl().getMatricula(),"6"};
+        Map<Character,Object> map = selects.retMateriasC(data);
 
         AnexoAdapter adp = new AnexoAdapter(map,user);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         table.setLayoutManager(llm);
         table.setAdapter(adp);
+        Maestro ma = selects.retDosId(data);
+        edtA.setText(ma.nombreCompleto());
+        edtA.setEnabled(false);
+        if( user instanceof JefeAcademia) {
+            edtJA.setText(((JefeAcademia) user).nombreCompleto());
+            edtJD.setEnabled(false);
+        }else {
+            edtJA.setText("");
+        }
+        edtJD.setText("");
 
     }
-    public void makeChange(View v){
+    public void makeChangeA(View v){
         //short index = (short)spOption.getSelectedItemPosition();
         //if( index > 0){
-            String[] newData = {"4",""+sol.getID(),""+sol.getAl().getMatricula(),"7"};
+            String[] newData = {"7",""+sol.getID(),""+sol.getAl().getMatricula(),"7"};
             updates.updateSol(newData);
             /*String[] newData2 = {""+academys.get(index).getJaca().getID(),""+sol.getID()};
             inserts.insertAsig(newData2);*/

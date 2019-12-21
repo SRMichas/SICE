@@ -72,11 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra("user",(Coordinador)obj);
             }else if(obj instanceof Maestro){
                 d = "Maestro";
-                intent.setClass(this,EscolaresActivity.class);
+                intent.setClass(this,JefeDivisionesActivity.class);
                 intent.putExtra("user",(Maestro)obj);
             }else if(obj instanceof JefeAcademia){
                 d = "JefeAcademia";
-                intent.setClass(this,JefeDivisionesActivity.class);
+                intent.setClass(this,AcademiaActivity.class);
                 intent.putExtra("user",(JefeAcademia)obj);
             }else if(obj instanceof JefeDepartamento){
                 d = "Jefe Departamento";

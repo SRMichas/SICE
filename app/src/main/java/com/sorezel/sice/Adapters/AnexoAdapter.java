@@ -64,7 +64,14 @@ public class AnexoAdapter extends RecyclerView.Adapter<AnexoAdapter.VH> {
             vh.txvP.setText(""+perce);
             vh.txvA.setText(bl.get(i)?"Si":"No");
         }else if( user instanceof JefeAcademia){
-
+            vh.txvNO.setText(""+(i+1));
+            vh.txvN1.setText(m1.getNombre());
+            vh.txvC1.setText(""+m1.getID());
+            vh.txvCal.setText(""+m1.getCalificacion());
+            vh.txvN2.setText(m2.getNombre());
+            vh.txvC2.setText(""+m2.getID());
+            vh.txvP.setText(""+perce);
+            vh.txvA.setText(bl.get(i)?"Si":"No");
         }else if( user instanceof JefeDepartamento){
 
         }else if( user instanceof Escolares){

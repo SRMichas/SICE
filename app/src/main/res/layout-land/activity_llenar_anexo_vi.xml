@@ -3,15 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/lle_tool"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/tool_color"
-        android:theme="@style/ToolbarTheme"
-        app:titleTextColor="@android:color/white" />
+    <include
+        android:id="@+id/anex_tool"
+        layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -30,11 +27,25 @@
             android:layout_height="fill_parent"
             android:background="@android:color/black" />
 
-        <fragment
-            android:id="@+id/fr_maestro"
-            android:name="com.example.elias.sice.Fragments.LlenaMatFragment"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="25.0" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="25.0"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--<fragment
+                    android:id="@+id/fr_maestro"
+                    android:name="com.sorezel.sice.Fragments.LlenaMatFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />-->
+                <include
+                    android:id="@+id/fr_maestro"
+                    layout="@layout/fragment_llena_mat"/>
+            </LinearLayout>
+
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>

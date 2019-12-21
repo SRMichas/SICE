@@ -19,6 +19,7 @@ public class ListKardexAdapter extends RecyclerView.Adapter<ListKardexAdapter.VH
     ArrayList<Materia> lista;
     Context c;
 
+    public ListKardexAdapter(){ lista = new ArrayList<>();}
     public ListKardexAdapter(ArrayList<Materia> l){
         lista = l;
     }

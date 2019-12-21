@@ -248,7 +248,7 @@
         <Button
             android:id="@+id/btnReSol"
             style="@style/miStilo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5.0"
             android:text="Rechazar Solicitud"
@@ -258,7 +258,7 @@
         <Button
             android:id="@+id/btnAceSol"
             style="@style/miStilo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5.0"
             android:text="Aceptar Solicitud"
