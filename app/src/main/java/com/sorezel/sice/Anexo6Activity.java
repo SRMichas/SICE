@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +22,10 @@ import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,12 +42,18 @@ public class Anexo6Activity extends AppCompatActivity{
     private EditText edtA,edtJA,edtJD;
     private Spinner spGen;
     private RecyclerView table;
+    Map<Character,Object> map;
+    boolean test = false;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anexovi);
+
+        Toolbar tb = findViewById(R.id.anexo6_tool);
+        setSupportActionBar(tb);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         LocalHelper2 helper = new LocalHelper2(this);
         helper.openDataBase();
@@ -90,9 +100,13 @@ public class Anexo6Activity extends AppCompatActivity{
     }
     private void fillTable(){
         //analizada -> maestro
-        String[] data = {""+sol.getID(),""+sol.getAl().getMatricula(),"6"};
-        Map<Character,Object> map = selects.retMateriasC(data);
-
+        String sta = (user instanceof JefeAcademia) ? "6" : "7";
+        String[] data = {""+sol.getID(),""+sol.getAl().getMatricula(),sta};
+        map = selects.retMateriasC(data);
+        if (test)
+            return;
+        map.put('5',true);
+        map.put('6',R.layout.modelo_anexo);
         AnexoAdapter adp = new AnexoAdapter(map,user);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         table.setLayoutManager(llm);
@@ -100,22 +114,64 @@ public class Anexo6Activity extends AppCompatActivity{
         Maestro ma = selects.retDosId(data);
         edtA.setText(ma.nombreCompleto());
         edtA.setEnabled(false);
+        edtJD.setText(R.string.jefeDepa);
+        edtJD.setEnabled(false);
         if( user instanceof JefeAcademia) {
             edtJA.setText(((JefeAcademia) user).nombreCompleto());
-            edtJD.setEnabled(false);
         }else {
-            edtJA.setText("");
+            String name = selects.retName(data);
+            edtJA.setText(name);
+            edtJA.setEnabled(false);
         }
-        edtJD.setText("");
+        //edtJD.setText("");
 
     }
     public void makeChangeA(View v){
         //short index = (short)spOption.getSelectedItemPosition();
         //if( index > 0){
-            String[] newData = {"7",""+sol.getID(),""+sol.getAl().getMatricula(),"7"};
+
+            String d,sta,psta,cdr = null;
+            if( user instanceof JefeAcademia) {
+                sta = "7";
+                psta="6";
+                JefeAcademia ja = (JefeAcademia) user;
+                d = "" +ja.getID();
+                String[] newData2 = {d,retFch()};
+                inserts.insertConva(newData2);
+                String[] nD3 = new String[5];
+                ArrayList<Materia> mat=(ArrayList<Materia>) map.get('1'),
+                        matCo=(ArrayList<Materia>) map.get('2');
+                ArrayList<Boolean> bl=(ArrayList<Boolean>) map.get('3');;
+                ArrayList<Integer> perc=(ArrayList<Integer>) map.get('4');;
+                d = ""+selects.retLastConva();
+                int cal;
+                for (int i = 0; i < mat.size(); i++) {
+                    if( bl.get(i)) {
+                        cal=matCo.get(i).getCalificacion();
+                        nD3[0] = d;
+                        nD3[1] = ""+sol.getID();
+                        nD3[2] = ""+mat.get(i).getID();
+                        nD3[3] = "prueba";
+                        if( cal >= 70){
+                            cdr=selects.retCred(matCo.get(i).getID());
+                        }
+                        nD3[4] = cdr;
+                        inserts.inserDetConva(nD3);
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }else {
+                d = "";
+                sta="8";
+                psta="7";
+            }
+            String[] newData = {sta,""+sol.getID(),""+sol.getAl().getMatricula(),psta};
             updates.updateSol(newData);
-            /*String[] newData2 = {""+academys.get(index).getJaca().getID(),""+sol.getID()};
-            inserts.insertAsig(newData2);*/
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -127,7 +183,10 @@ public class Anexo6Activity extends AppCompatActivity{
             Snackbar.make(spOption,"No ha selecciona una academia",Snackbar.LENGTH_SHORT).show();
         }*/
     }
-    private void algo3(){
-
+    private String retFch(){
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = df.format(currentTime);
+        return formattedDate;
     }
 }

@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.Entities.Escolares;
 import com.sorezel.sice.Entities.JefeDepartamento;
 import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Fragments.LoadingFragment;
@@ -67,6 +68,8 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
             b.putSerializable("user",(JefeDepartamento)user);
         }else if( user instanceof Maestro){
             b.putSerializable("user",(Maestro)user);
+        }else if( user instanceof Escolares){
+            b.putSerializable("user",(Escolares)user);
         }
 
         wsf.setArguments(b);
@@ -86,6 +89,7 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
                 fragM.popBackStack("HOMEW2",0);
                 break;
             case R.id.work_sol:
+                char k = 0;
                 /*fragment = new WorkSolicitudesFragment();
                 b.putInt("uid",coord.getID());
                 b.putSerializable("user",coord);
@@ -94,10 +98,15 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
                 fragment = new LoadingFragment();
                 if( user instanceof JefeDepartamento){
                     b.putSerializable("user",(JefeDepartamento)user);
+                    k='b';
                 }else if( user instanceof Maestro){
                     b.putSerializable("user",(Maestro)user);
+                    k='a';
+                }else if( user instanceof Escolares){
+                    b.putSerializable("user",(Escolares)user);
+                    k='c';
                 }
-                b.putChar("key",'a');
+                b.putChar("key",k);
                 fragment.setArguments(b);
                 fragM.beginTransaction().replace(container,fragment).
                         addToBackStack("WK2").commit();

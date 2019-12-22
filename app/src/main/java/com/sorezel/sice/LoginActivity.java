@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra("user",(JefeDepartamento)obj);
             }else if(obj instanceof Escolares){
                 d = "Escolares";
-                intent.setClass(this,EscolaresActivity.class);
+                intent.setClass(this,JefeDivisionesActivity.class);
                 intent.putExtra("user",(Escolares)obj);
             }else{
                 Snackbar.make(findViewById(R.id.login_ingresar),

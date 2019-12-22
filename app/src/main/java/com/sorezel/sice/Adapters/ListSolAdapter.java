@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sorezel.sice.Anexo6Activity;
+import com.sorezel.sice.Anexo7Activity;
 import com.sorezel.sice.DetalleSolicitudActivity;
 import com.sorezel.sice.Entities.Coordinador;
 import com.sorezel.sice.Entities.Escolares;
@@ -43,8 +44,7 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelo_solicitud,parent,false);
         c = parent.getContext();
-        VH vh = new VH(v);
-        return vh;
+        return new VH(v);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
         if( user instanceof Coordinador){
             vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
             vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(""+sol.getAl().getMatricula());
+            vh.txvNC.setText(String.valueOf(sol.getAl().getMatricula()));
 
             if( type == '1')
                 vh.txvF.setText(sol.getFchSolicitada());
@@ -66,9 +66,15 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
             vh.txvNC.setText(""+sol.getAl().getMatricula());
             vh.txvF.setText(sol.getFchRespuesta());
         }else if( user instanceof JefeDepartamento){
-
+            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
+            vh.txvN.setText(sol.getAl().nombreCompleto());
+            vh.txvNC.setText(""+sol.getAl().getMatricula());
+            vh.txvF.setText(sol.getFchRespuesta());
         }else if( user instanceof Escolares){
-
+            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
+            vh.txvN.setText(sol.getAl().nombreCompleto());
+            vh.txvNC.setText(""+sol.getAl().getMatricula());
+            vh.txvF.setText(sol.getFchRespuesta());
         }else if( user instanceof Maestro){
             vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
             vh.txvN.setText(sol.getAl().nombreCompleto());
@@ -88,7 +94,7 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
         TextView txvNC,txvN,txvF,txvC;
         ImageView img;
 
-        public VH(@NonNull View itemView) {
+        private VH(@NonNull View itemView) {
             super(itemView);
             txvN = itemView.findViewById(R.id.nomAlum);
             txvNC = itemView.findViewById(R.id.nconAlum);
@@ -124,9 +130,13 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
                     intent.putExtra("user",(JefeAcademia)user);
                 }
             }else if( user instanceof JefeDepartamento){
-
+                intent.setClass(c, Anexo7Activity.class);
+                intent.putExtra("sol",lista.get(indice));
+                intent.putExtra("user",(JefeDepartamento)user);
             }else if( user instanceof Escolares){
-
+                intent.setClass(c, Anexo7Activity.class);
+                intent.putExtra("sol",lista.get(indice));
+                intent.putExtra("user",(Escolares)user);
             }else if( user instanceof Maestro){
                 intent.setClass(c, LlenarMatActivity.class);
                 intent.putExtra("sol",lista.get(indice));

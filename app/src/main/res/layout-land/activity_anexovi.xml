@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/anexo7_tool"
+            android:id="@+id/anexo6_tool"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/tool_color"

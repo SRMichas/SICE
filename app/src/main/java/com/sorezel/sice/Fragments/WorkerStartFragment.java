@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.sorezel.sice.Entities.Coordinador;
+import com.sorezel.sice.Entities.Escolares;
 import com.sorezel.sice.Entities.JefeAcademia;
 import com.sorezel.sice.Entities.JefeDepartamento;
 import com.sorezel.sice.Entities.Maestro;
@@ -56,6 +57,12 @@ public class WorkerStartFragment extends Fragment {
                 JefeDepartamento depB = (JefeDepartamento) s;
                 txvN.setText(depB.nombreCompleto());
                 edtNC.setText(""+depB.getID());
+                edtC.setText("");
+                edtI.setText("Tecnologico de Culiacan");
+            }else if( s instanceof Escolares){
+                Escolares esc = (Escolares) s;
+                txvN.setText(esc.nombreCompleto());
+                edtNC.setText(""+esc.getID());
                 edtC.setText("");
                 edtI.setText("Tecnologico de Culiacan");
             }

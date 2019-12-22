@@ -219,6 +219,7 @@ public class LlenarMatActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                onBackPressed();
             }
         }else{
             Snackbar.make(rc,"No hay materias",Snackbar.LENGTH_SHORT).show();
