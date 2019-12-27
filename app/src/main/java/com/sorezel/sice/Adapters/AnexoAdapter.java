@@ -1,36 +1,30 @@
 package com.sorezel.sice.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sorezel.sice.Anexo7Activity;
 import com.sorezel.sice.Entities.Coordinador;
 import com.sorezel.sice.Entities.Escolares;
 import com.sorezel.sice.Entities.JefeAcademia;
 import com.sorezel.sice.Entities.JefeDepartamento;
 import com.sorezel.sice.Entities.Materia;
-import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.R;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 public class AnexoAdapter extends RecyclerView.Adapter<AnexoAdapter.VH> {
 
-    Context c;
-    Object user;
-    ArrayList<Materia> mat,matCo;
-    ArrayList<Boolean> bl;
+    private Context c;
+    private Object user;
+    private ArrayList<Materia> mat,matCo;
+    private ArrayList<Boolean> bl;
     private ArrayList<Integer> perc;
-    boolean res;
+    private boolean res;
     private static int reso=0;
     private int totCre=0;
 
@@ -47,7 +41,7 @@ public class AnexoAdapter extends RecyclerView.Adapter<AnexoAdapter.VH> {
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = null;
+        View v;
         if (res)
             v = LayoutInflater.from(parent.getContext()).inflate(reso,parent,false);
         else
@@ -65,51 +59,28 @@ public class AnexoAdapter extends RecyclerView.Adapter<AnexoAdapter.VH> {
         try {
              accept = bl.get(i);
              perce = perc.get(i);
-        }catch (IndexOutOfBoundsException e){}
-
-
+        }catch (IndexOutOfBoundsException e){ e.printStackTrace();}
+        
         vh.indice = i;
-        if( user instanceof Coordinador){
-            vh.txvNO.setText(""+(i+1));
-            vh.txvN1.setText(m1.getNombre());
-            vh.txvC1.setText(""+m1.getID());
-            vh.txvCal.setText(""+m1.getCalificacion());
-            vh.txvN2.setText(m2.getNombre());
-            vh.txvC2.setText(""+m2.getID());
-            vh.txvP.setText(""+perce);
-            vh.txvA.setText(bl.get(i)?"Si":"No");
-        }else if( user instanceof JefeAcademia){
-            vh.txvNO.setText(""+(i+1));
-            vh.txvN1.setText(m1.getNombre());
-            vh.txvC1.setText(""+m1.getID());
-            vh.txvCal.setText(""+m1.getCalificacion());
-            vh.txvN2.setText(m2.getNombre());
-            vh.txvC2.setText(""+m2.getID());
-            vh.txvP.setText(""+perce);
-            vh.txvA.setText(bl.get(i)?"Si":"No");
-        }else if( user instanceof JefeDepartamento){
-            vh.txvNO.setText(String.valueOf((i+1)));
-            vh.txvN1.setText(m1.getNombre());
-            vh.txvCal.setText(String.valueOf(m2.getCalificacion()));
-            vh.txvN2.setText(m2.getNombre());
-            vh.txvC2.setText(String.valueOf(m2.getID()));
-            vh.txvCR.setText(String.valueOf(m2.getCreditos()));
-            totCre += m2.getCreditos();
-            ((Anexo7Activity)c).setTot(totCre);
-        }else if( user instanceof Escolares){
-            vh.txvNO.setText(String.valueOf((i+1)));
-            vh.txvN1.setText(m1.getNombre());
-            vh.txvCal.setText(String.valueOf(m2.getCalificacion()));
-            vh.txvN2.setText(m2.getNombre());
-            vh.txvC2.setText(String.valueOf(m2.getID()));
+        vh.txvNO.setText(String.valueOf(i+1));
+        vh.txvN1.setText(m1.getNombre());
+        vh.txvCal.setText(String.valueOf(m1.getCalificacion()));
+        vh.txvN2.setText(m2.getNombre());
+        vh.txvC2.setText(String.valueOf(m2.getID()));
+
+        if( user instanceof Coordinador || user instanceof JefeAcademia){
+            vh.txvC1.setText(String.valueOf(m1.getID()));
+            vh.txvP.setText(String.valueOf(perce));
+            vh.txvA.setText(accept ?"Si":"No");
+        }else if( user instanceof JefeDepartamento || user instanceof Escolares){
             vh.txvCR.setText(String.valueOf(m2.getCreditos()));
             totCre += m2.getCreditos();
             ((Anexo7Activity)c).setTot(totCre);
         }
     }
-    public int getCredits(){
+    /*public int getCredits(){
         return totCre;
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -121,7 +92,7 @@ public class AnexoAdapter extends RecyclerView.Adapter<AnexoAdapter.VH> {
         int indice;
         TextView txvNO,txvN1,txvC1,txvCal,txvN2,txvC2,txvP,txvA,txvCR;
 
-        public VH(@NonNull View itemView) {
+        private VH(@NonNull View itemView) {
             super(itemView);
             if( res ){
                 txvNO = itemView.findViewById(R.id.mo_anx_no);

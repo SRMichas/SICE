@@ -34,19 +34,11 @@
             android:label="SICE:Coordinador"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".KardexActivity"
-            android:label="SICE:Kardex"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".DetalleSolicitudActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".TablaMain" />
         <activity
             android:name=".Anexo6Activity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".EstadoSolicitudActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".AcademiaActivity"
             android:label="SICE:Maestro"
@@ -58,19 +50,7 @@
             android:name=".LlenarMatActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".AcademiaActivity2"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".JefeDivisionesActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".EscolaresActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Anexo6Activity2"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".FormularioActivity"
             android:screenOrientation="portrait" />
 
 

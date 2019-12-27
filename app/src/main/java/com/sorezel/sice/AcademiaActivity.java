@@ -3,7 +3,7 @@ package com.sorezel.sice;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +12,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.navigation.NavigationView;
-import com.sorezel.sice.BD.LocalHelper2;
-import com.sorezel.sice.Entities.Academia;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.JefeAcademia;
 import com.sorezel.sice.Fragments.WorkSolicitudesFragment;
 import com.sorezel.sice.Fragments.WorkerStartFragment;
@@ -23,12 +21,11 @@ import com.sorezel.sice.Fragments.WorkerStartFragment;
 public class AcademiaActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout DWL;
-    private NavigationView NGV;
     FragmentManager fragM;
-    LocalHelper2.Eliminaciones deletes;
-    LocalHelper2.Consultas selects;
-    LocalHelper2.Actualizaciones updates;
-    LocalHelper2.Insersiones inserts;
+    /*LocalHelper.Eliminaciones deletes;
+    LocalHelper.Consultas selects;
+    LocalHelper.Actualizaciones updates;
+    LocalHelper.Insersiones inserts;*/
     JefeAcademia ja;
 
     @Override
@@ -38,17 +35,17 @@ public class AcademiaActivity extends AppCompatActivity implements NavigationVie
 
         Toolbar tb = findViewById(R.id.work_tool);
         setSupportActionBar(tb);
-        LocalHelper2 helper = new LocalHelper2(this);
+        LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
-        deletes = helper.new Eliminaciones();
+        /*deletes = helper.new Eliminaciones();
         selects = helper.new Consultas();
         updates = helper.new Actualizaciones();
-        inserts = helper.new Insersiones();
+        inserts = helper.new Insersiones();*/
 
         ja = (JefeAcademia) getIntent().getSerializableExtra("user");
 
         DWL = findViewById(R.id.work_drawer);
-        NGV = findViewById(R.id.work_nav);
+        NavigationView NGV = findViewById(R.id.work_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,DWL,tb,R.string.open,R.string.close);
         DWL.addDrawerListener(toggle);
         toggle.syncState();
@@ -68,11 +65,11 @@ public class AcademiaActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Toast.makeText(this,"Seleccionaste "+item.getTitle(), Toast.LENGTH_SHORT).show();
         //SharedPreferences sh = getSharedPreferences("Usuario",0);
-        Fragment fragment = null;
+        Fragment fragment;
         Bundle b = new Bundle();
         switch (id){
             case R.id.work_home:
@@ -92,8 +89,7 @@ public class AcademiaActivity extends AppCompatActivity implements NavigationVie
                 finish();
                 break;
         }
-        DrawerLayout drawer = findViewById(R.id.work_drawer);
-        drawer.closeDrawer(GravityCompat.START);
+        DWL.closeDrawer(GravityCompat.START);
         return true;
     }
 

@@ -3,7 +3,7 @@ package com.sorezel.sice;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,27 +12,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.navigation.NavigationView;
-import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Escolares;
 import com.sorezel.sice.Entities.JefeDepartamento;
 import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Fragments.LoadingFragment;
 import com.sorezel.sice.Fragments.WorkSolicitudesFragment;
-import com.sorezel.sice.Fragments.WorkerListFragment;
 import com.sorezel.sice.Fragments.WorkerStartFragment;
 
 public class JefeDivisionesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout DWL;
-    private NavigationView NGV;
-    Object user;
-    FragmentManager fragM;
-    LocalHelper2.Eliminaciones deletes;
-    LocalHelper2.Consultas selects;
-    LocalHelper2.Actualizaciones updates;
-    LocalHelper2.Insersiones inserts;
+    //private NavigationView NGV;
+    private Object user;
+    private FragmentManager fragM;
+    /*private LocalHelper.Eliminaciones deletes;
+    private LocalHelper.Consultas selects;
+    private LocalHelper.Actualizaciones updates;
+    private LocalHelper.Insersiones inserts;*/
     private static final int container = R.id.work2_container;
 
     @Override
@@ -42,16 +39,16 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
 
         Toolbar tb = findViewById(R.id.work2_tool);
         setSupportActionBar(tb);
-        LocalHelper2 helper = new LocalHelper2(this);
+        /*LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
         deletes = helper.new Eliminaciones();
         selects = helper.new Consultas();
         updates = helper.new Actualizaciones();
-        inserts = helper.new Insersiones();
+        inserts = helper.new Insersiones();*/
         user = getIntent().getSerializableExtra("user");
 
         DWL = findViewById(R.id.work_drawer);
-        NGV = findViewById(R.id.work_nav);
+        NavigationView NGV = findViewById(R.id.work_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,DWL,tb,R.string.open,R.string.close);
         DWL.addDrawerListener(toggle);
         toggle.syncState();
@@ -78,11 +75,11 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Toast.makeText(this,"Seleccionaste "+item.getTitle(), Toast.LENGTH_SHORT).show();
         //SharedPreferences sh = getSharedPreferences("Usuario",0);
-        Fragment fragment = null;
+        Fragment fragment;
         Bundle b = new Bundle();
         switch (id){
             case R.id.work_home:
@@ -90,11 +87,6 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
                 break;
             case R.id.work_sol:
                 char k = 0;
-                /*fragment = new WorkSolicitudesFragment();
-                b.putInt("uid",coord.getID());
-                b.putSerializable("user",coord);
-                b.putChar("swv1",'7');
-                b.putChar("swv2",'8');*/
                 fragment = new LoadingFragment();
                 if( user instanceof JefeDepartamento){
                     b.putSerializable("user",(JefeDepartamento)user);
@@ -115,8 +107,8 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
                 finish();
                 break;
         }
-        DrawerLayout drawer = findViewById(R.id.work_drawer);
-        drawer.closeDrawer(GravityCompat.START);
+        //DrawerLayout drawer = findViewById(R.id.work_drawer);
+        DWL.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -131,6 +123,4 @@ public class JefeDivisionesActivity extends AppCompatActivity implements Navigat
             fragM.popBackStack("HOMEW2",0);
         }
     }
-
-
 }

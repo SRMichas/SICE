@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Estimado"
-        android:textSize="30.0sp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"/>
-
-    <TextView
-        android:id="@+id/alum_txvgf_rej"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="[nombre]"
-        android:textSize="30.0sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tu Solicitud fue:"
-        android:textSize="32.0sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="15dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RECHAZADA"
-        android:textSize="32.0sp"/>
-
-    <ImageView
-        android:layout_width="@dimen/fg_ace_sz"
-        android:layout_height="@dimen/fg_ace_sz"
-        app:srcCompat="@drawable/nel"
-        android:layout_marginTop="30dp" />
-
-    <Button
-        android:id="@+id/salirR"
-        style="@style/miStilo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Salir"
-        android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="90dp"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/sol_rej_head"
+            android:textSize="30.0sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/alum_txvgf_rej"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/testText"
+            android:textSize="30.0sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sol_rej_txv1"
+            android:textSize="32.0sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rol_rej_txv2"
+            android:textSize="32.0sp"/>
+
+        <ImageView
+            android:layout_width="@dimen/fg_ace_sz"
+            android:layout_height="@dimen/fg_ace_sz"
+            app:srcCompat="@drawable/nel"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/sol_rej_img_content"/>
+
+        <Button
+            android:id="@+id/salirR"
+            style="@style/miStilo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sol_rej_btn"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="90dp"
+            tools:ignore="UnusedAttribute" />
+
+    </LinearLayout>
+</ScrollView>

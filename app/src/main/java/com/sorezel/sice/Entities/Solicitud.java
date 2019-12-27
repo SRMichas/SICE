@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Solicitud implements Serializable {
 
-    int ID;
-    String fchSolicitada,fchRespuesta;
-    Alumno al;
-    Carrera carrera;
-    Status status;
+    private int ID;
+    private String fchSolicitada,fchRespuesta;
+    private Alumno al;
+    private Carrera carrera;
+    private Status status;
 
     public Solicitud() {
     }

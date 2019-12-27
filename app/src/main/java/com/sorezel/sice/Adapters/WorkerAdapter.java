@@ -1,20 +1,16 @@
 package com.sorezel.sice.Adapters;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-
 import java.util.ArrayList;
 
 public class WorkerAdapter extends FragmentStatePagerAdapter {
 
 
-    ArrayList<Fragment> pesta= new ArrayList<>();
-    Context con;
-    String[] names;
+    private ArrayList<Fragment> pesta= new ArrayList<>();
+    private String[] names;
 
     public WorkerAdapter(@NonNull FragmentManager fm, int behavior, String[] n) {
         super(fm, behavior);

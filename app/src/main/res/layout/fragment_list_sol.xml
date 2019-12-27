@@ -3,9 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/work_list_sol"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

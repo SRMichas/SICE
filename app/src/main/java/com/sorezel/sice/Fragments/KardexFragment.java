@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 import com.sorezel.sice.Adapters.KardexAdapter;
 import com.sorezel.sice.R;
@@ -18,8 +16,7 @@ public class KardexFragment extends Fragment {
 
     private KardexAdapter am;
     private int uid;
-    TabLayout tbl;
-    ViewPager vp;
+    private ViewPager vp;
 
     @Nullable
     @Override
@@ -29,7 +26,7 @@ public class KardexFragment extends Fragment {
         if (getArguments() != null){
             Bundle b = getArguments();
             uid = b.getInt("uid");
-            tbl = v.findViewById(R.id.alum_tab);
+            TabLayout tbl = v.findViewById(R.id.alum_tab);
             vp = v.findViewById(R.id.alum_pager);
 
             load();

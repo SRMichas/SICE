@@ -13,11 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.snackbar.Snackbar;
-import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Carrera;
 import com.sorezel.sice.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,13 +28,11 @@ public class FormFragment extends Fragment {
     private TextView txvCl;
     private Spinner spCarr;
     private View v;
-
-    LocalHelper2.Insersiones inserts;
-    LocalHelper2.Consultas selects;
-
-    Alumno al;
-    ArrayList<Carrera> carreras;
-    ArrayList<String> info;
+    private LocalHelper.Insersiones inserts;
+    private LocalHelper.Consultas selects;
+    private Alumno al;
+    private ArrayList<Carrera> carreras;
+    private ArrayList<String> info;
 
     @Nullable
     @Override
@@ -43,18 +40,21 @@ public class FormFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_form,container,false);
 
         if (getArguments() != null){
-            LocalHelper2 helper = new LocalHelper2(getContext());
+            LocalHelper helper = new LocalHelper(getContext());
             helper.openDataBase();
             selects = helper.new Consultas();
             inserts = helper.new Insersiones();
             init();
             Bundle b = getArguments();
             al = (Alumno) b.getSerializable("user");
-            edtN.setText(al.nombreCompleto());
-            edtI.setText("Tecnologico de Cualican");
-            edtNC.setText(""+al.getMatricula());
-            edtS.setText(""+al.getSemestre());
-            edtC.setText(al.getCarr().getNombre());
+            if (al != null) {
+                edtN.setText(al.nombreCompleto());
+                edtC.setText(al.getCarr().getNombre());
+            }
+            edtI.setText(R.string.institute);
+            edtNC.setText(String.valueOf(al.getMatricula()));
+            edtS.setText(String.valueOf(al.getSemestre()));
+
         }
 
         return v;

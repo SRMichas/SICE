@@ -5,17 +5,15 @@ import java.io.Serializable;
 public class Escolares implements Serializable {
 
     private int ID;
-    private String Nombre,ApePat,ApeMat,Contraseña;
+    private String Nombre,ApePat,ApeMat, Password;
 
-    public Escolares() {
-    }
 
-    public Escolares(int ID, String nombre, String apePat, String apeMat, String contraseña) {
+    public Escolares(int ID, String nombre, String apePat, String apeMat, String pass) {
         this.ID = ID;
         Nombre = nombre;
         ApePat = apePat;
         ApeMat = apeMat;
-        Contraseña = contraseña;
+        Password = pass;
     }
 
     public int getID() {
@@ -50,12 +48,12 @@ public class Escolares implements Serializable {
         ApeMat = apeMat;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setContraseña(String contraseña) {
-        Contraseña = contraseña;
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public String nombreCompleto(){

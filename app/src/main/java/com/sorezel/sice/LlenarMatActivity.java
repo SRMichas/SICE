@@ -1,7 +1,6 @@
 package com.sorezel.sice;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -9,43 +8,40 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.sorezel.sice.Adapters.ListAdapter;
 import com.sorezel.sice.Adapters.ListKardexAdapter;
-import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 public class LlenarMatActivity extends AppCompatActivity {
 
-    Solicitud sol;
-    Maestro user;
-    LocalHelper2.Consultas selects;
-    LocalHelper2.Actualizaciones updates;
-    LocalHelper2.Insersiones inserts;
-    RecyclerView rv,rc;
-    TextView txvN,txvC,txvM1C,txvM1N,txvM1CA;
-    EditText edtM2C,edtM2N,edtM2CA,edtP;
-    Spinner sp;
-    ListKardexAdapter lka;
-    Button btnADD,btnREM,btnFIN;
-    ArrayList<Materia> materias,materiasFirst,primer;
-    ArrayList<Boolean> aceps;
-    ArrayList<Integer> porcen;
-    Materia mat,matFirst;
+    private Solicitud sol;
+    private Maestro user;
+    private LocalHelper.Consultas selects;
+    private LocalHelper.Actualizaciones updates;
+    private LocalHelper.Insersiones inserts;
+    private RecyclerView rv,rc;
+    private TextView txvN,txvC,txvM1C,txvM1N,txvM1CA;
+    private EditText edtM2C,edtM2N,edtM2CA,edtP;
+    private Spinner sp;
+    private ListKardexAdapter lka;
+    //private Button btnADD,btnREM,btnFIN;
+    private ArrayList<Materia> materias,materiasFirst,primer;
+    private ArrayList<Boolean> aceps;
+    private ArrayList<Integer> porcen;
+    private Materia mat,matFirst;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +55,7 @@ public class LlenarMatActivity extends AppCompatActivity {
         sol = (Solicitud) getIntent().getSerializableExtra("sol");
         user = (Maestro) getIntent().getSerializableExtra("user");
 
-        LocalHelper2 helper = new LocalHelper2(this);
+        LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
         selects = helper.new Consultas();
         updates = helper.new Actualizaciones();
@@ -77,9 +73,9 @@ public class LlenarMatActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Materia item) {
                 Toast.makeText(LlenarMatActivity.this, "Item Clicked: "+item.getNombre(), Toast.LENGTH_LONG).show();
-                txvM1C.setText(""+item.getID());
-                txvM1N.setText(""+item.getNombre());
-                txvM1CA.setText(""+item.getCalificacion());
+                txvM1C.setText(String.valueOf(item.getID()));
+                txvM1N.setText(String.valueOf(item.getNombre()));
+                txvM1CA.setText(String.valueOf(item.getCalificacion()));
                 matFirst = item;
             }
         });
@@ -120,6 +116,7 @@ public class LlenarMatActivity extends AppCompatActivity {
         lka = new ListKardexAdapter(materias);
         rc.setLayoutManager(llm);
         rc.setAdapter(lka);
+        Button btnADD,btnREM,btnFIN;
         btnADD = findViewById(R.id.agr);
         btnADD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,21 +145,11 @@ public class LlenarMatActivity extends AppCompatActivity {
 
         txvC.setText(al.getCarr().getNombre());
         txvN.setText(al.nombreCompleto());
-        txvM1C.setText(""+ma.getID());
+        txvM1C.setText(String.valueOf(ma.getID()));
         txvM1N.setText(ma.getNombre());
-        txvM1CA.setText(""+ma.getCalificacion());
+        txvM1CA.setText(String.valueOf(ma.getCalificacion()));
     }
     private void add(){
-        /*int id=Integer.parseInt(edtM2C.getText().toString());
-        String n=edtM2N.getText().toString();
-        short cr=0,
-                ca=Short.parseShort(edtM2CA.getText().toString());
-        if( ca >= 70 )
-            cr = 5;
-        mat = new Materia(id,n,cr,ca);
-        materias.add(mat);
-        lka = new ListKardexAdapter(materias);
-        rc.notify();*/
         short idx = (short) sp.getSelectedItemPosition();
         if( idx > 0){
             /*boolean c = (idx == 1);
@@ -179,9 +166,9 @@ public class LlenarMatActivity extends AppCompatActivity {
             materiasFirst.add(matFirst);
             int pos = materias.size()-1;
             lka.notifyItemInserted(pos);
-            edtM2C.setText(""+(id+1));
-            edtM2CA.setText(""+(id+1));
-            aceps.add(((idx == 1) ? true : false));
+            edtM2C.setText(String.valueOf((id+1)));
+            edtM2CA.setText(String.valueOf((id+1)));
+            aceps.add((idx == 1));
             porcen.add(por);
         }
     }
@@ -203,15 +190,14 @@ public class LlenarMatActivity extends AppCompatActivity {
         if( materias.size() > 0){
             String[] newD = {"6",""+sol.getID(),""+sol.getAl().getMatricula(),"5"};
             updates.updateSol(newD);
-            char acep=' ';
             for(int i = 0; i < materiasFirst.size(); i++){
-                String sid=""+sol.getID(),
-                maid=""+materiasFirst.get(i).getID(),
-                mid=""+user.getID(),
-                ma2id=""+materias.get(i).getID(),
-                c=""+materias.get(i).getCalificacion(),
-                p=""+porcen.get(i),
-                a=""+(aceps.get(i)? "1" : "0");
+                String sid=String.valueOf(sol.getID()),
+                maid=String.valueOf(materiasFirst.get(i).getID()),
+                mid=String.valueOf(user.getID()),
+                ma2id=String.valueOf(materias.get(i).getID()),
+                c=String.valueOf(materias.get(i).getCalificacion()),
+                p=String.valueOf(porcen.get(i)),
+                a=(aceps.get(i)? "1" : "0");
                 String[] newD2 = {sid,maid,mid,ma2id,c,p,a};
                 inserts.insertDetSol(newD2);
                 try {

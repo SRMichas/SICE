@@ -11,4 +11,34 @@
     <string name="open">Open Navigation drawer</string>
     <string name="close">Close Navigation drawer</string>
     <string name="jefeDepa">Lopez Mirella Ana Rosaura</string>
+    <string name="sol_acep_txv1">Felicidades</string>
+    <string name="testText">[prueba]</string>
+    <string name="sol_acep_txv2">Tu Solicitud fue</string>
+    <string name="sol_acep_txv3">ACEPTADA</string>
+    <string name="sol_acep_btn_txt">Salir</string>
+    <string name="sol_acep_img_desc">Descripcion</string>
+    <string name="sol_rej_head">Estimado</string>
+    <string name="sol_rej_txv1">Tu Solicitud fue:</string>
+    <string name="rol_rej_txv2">RECHAZADA</string>
+    <string name="sol_rej_btn">Salir</string>
+    <string name="sol_rej_img_content">Contenido</string>
+    <string name="sol_wait_header">Tu solicitud se encuentra:</string>
+    <string name="form_header">Formulario de Convalidacion</string>
+    <string name="form_txv1">Nombre del Estudiante</string>
+    <string name="form_txv2">Instituto Tecnologico</string>
+    <string name="form_txv3">No. Control</string>
+    <string name="form_txv4">Semestre</string>
+    <string name="form_txv5">Carrera que cursa</string>
+    <string name="form_txv6">Clave Plan de Estudios</string>
+    <string name="form_txv7">Carrera Solicitada</string>
+    <string name="form_btn_txt">Aceptar</string>
+    <string name="fg_txt">Cargando...</string>
+    <string name="sol_wait_txv">Espera pacientemente !!!</string>
+    <string name="kdx_subj_pass">Aprobada</string>
+    <string name="kdx_subj_noapro">Reprobada</string>
+    <string name="institute">Tecnologico de Culiacan</string>
+    <string name="plan_date_sample">2015</string>
+    <string name="institute_name_sample">Culiacan</string>
+    <string name="year_sample">2015</string>
+
 </resources>

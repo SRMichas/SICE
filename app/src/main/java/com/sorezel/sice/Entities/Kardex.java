@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Kardex implements Serializable {
 
-    Materia mat;
-    short Calificacion,Creaditos;
+    private Materia mat;
+    private short Calificacion,Creaditos;
 
     public Kardex() {
     }

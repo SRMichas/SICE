@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sorezel.sice.Anexo6Activity;
 import com.sorezel.sice.Anexo7Activity;
 import com.sorezel.sice.DetalleSolicitudActivity;
@@ -22,16 +20,14 @@ import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.LlenarMatActivity;
 import com.sorezel.sice.R;
-
 import java.util.ArrayList;
 
 public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
 
-    ArrayList<Solicitud> lista;
-    Context c;
-    char type;
-    Object user;
-    Solicitud sol;
+    private ArrayList<Solicitud> lista;
+    private Context c;
+    private char type;
+    private Object user;
 
     public ListSolAdapter(ArrayList<Solicitud> l,char t,Object us){
         lista = l;
@@ -51,36 +47,18 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
     public void onBindViewHolder(@NonNull VH vh, int i) {
         Solicitud sol = lista.get(i);
         vh.indice = i;
-        if( user instanceof Coordinador){
-            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
-            vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(String.valueOf(sol.getAl().getMatricula()));
 
+        vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
+        vh.txvN.setText(sol.getAl().nombreCompleto());
+        vh.txvNC.setText(String.valueOf(sol.getAl().getMatricula()));
+
+        if( user instanceof Coordinador){
             if( type == '1')
                 vh.txvF.setText(sol.getFchSolicitada());
             else
                 vh.txvF.setText(sol.getFchRespuesta());
-        }else if( user instanceof JefeAcademia){
-            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
-            vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(""+sol.getAl().getMatricula());
+        }else
             vh.txvF.setText(sol.getFchRespuesta());
-        }else if( user instanceof JefeDepartamento){
-            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
-            vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(""+sol.getAl().getMatricula());
-            vh.txvF.setText(sol.getFchRespuesta());
-        }else if( user instanceof Escolares){
-            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
-            vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(""+sol.getAl().getMatricula());
-            vh.txvF.setText(sol.getFchRespuesta());
-        }else if( user instanceof Maestro){
-            vh.txvC.setText("Ing. en "+sol.getAl().getCarr().getNombre());
-            vh.txvN.setText(sol.getAl().nombreCompleto());
-            vh.txvNC.setText(""+sol.getAl().getMatricula());
-            vh.txvF.setText(sol.getFchRespuesta());
-        }
     }
 
     @Override
@@ -118,7 +96,6 @@ public class ListSolAdapter extends RecyclerView.Adapter<ListSolAdapter.VH> {
                     intent.putExtra("user",(Coordinador)user);
                     //intent.putExtra("");
                 }
-
             }else if( user instanceof JefeAcademia){
                 if( type == '1'){
                     intent.setClass(c,DetalleSolicitudActivity.class);

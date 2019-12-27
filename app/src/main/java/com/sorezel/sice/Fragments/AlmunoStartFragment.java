@@ -4,21 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.R;
 
 public class AlmunoStartFragment extends Fragment {
 
-    TextView edtN,edtNC,edtS,edtC,edtI;
-    View v;
-    Alumno al;
+    private TextView edtN,edtNC,edtS,edtC,edtI;
+    private View v;
 
     @Nullable
     @Override
@@ -28,12 +24,14 @@ public class AlmunoStartFragment extends Fragment {
         if (getArguments() != null){
             init();
             Bundle b = getArguments();
-            al = (Alumno) b.getSerializable("user");
-            edtN.setText(al.nombreCompleto());
-            edtNC.setText(""+al.getMatricula());
-            edtS.setText(""+al.getSemestre());
-            edtC.setText(al.getCarr().getNombre());
-            edtI.setText("Tecnologico de Culiacan");
+            Alumno al = (Alumno) b.getSerializable("user");
+            if (al != null) {
+                edtN.setText(al.nombreCompleto());
+                edtNC.setText(String.valueOf(al.getMatricula()));
+                edtS.setText(String.valueOf(al.getSemestre()));
+                edtC.setText(al.getCarr().getNombre());
+            }
+            edtI.setText(R.string.institute);
         }
 
         return v;

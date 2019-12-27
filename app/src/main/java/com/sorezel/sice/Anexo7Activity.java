@@ -1,11 +1,9 @@
 package com.sorezel.sice;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sorezel.sice.Adapters.AnexoAdapter;
-import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Escolares;
-import com.sorezel.sice.Entities.JefeAcademia;
 import com.sorezel.sice.Entities.JefeDepartamento;
-import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Solicitud;
 
 import java.text.SimpleDateFormat;
@@ -31,17 +27,16 @@ import java.util.Map;
 
 public class Anexo7Activity extends AppCompatActivity {
 
-    private LocalHelper2.Insersiones inserts;
-    private LocalHelper2.Consultas selects;
-    private LocalHelper2.Actualizaciones updates;
-    private Alumno al;
+    private LocalHelper.Insersiones inserts;
+    private LocalHelper.Consultas selects;
+    private LocalHelper.Actualizaciones updates;
+    //private Alumno al;
     private Solicitud sol;
     private Object user;
-
     private TextView txvI1,txvN1,txvNP1,txvCP1,txvIT1,txvNP2,txvCP2,txvIT2,txvTC;
     private EditText edtA;
     private RecyclerView table;
-    Map<Character,Object> map;
+    private Map<Character,Object> map;
     boolean test = false;
 
     @Override
@@ -53,7 +48,7 @@ public class Anexo7Activity extends AppCompatActivity {
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        LocalHelper2 helper = new LocalHelper2(this);
+        LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
         inserts = helper.new Insersiones();
         selects = helper.new Consultas();
@@ -61,7 +56,7 @@ public class Anexo7Activity extends AppCompatActivity {
 
         //al = (Alumno) getIntent().getSerializableExtra("student");
         sol = (Solicitud) getIntent().getSerializableExtra("sol");
-        al = sol.getAl();
+        Alumno al = sol.getAl();
         user = getIntent().getSerializableExtra("user");
 
         init();
@@ -82,14 +77,14 @@ public class Anexo7Activity extends AppCompatActivity {
         table = findViewById(R.id.recy_mat2);
     }
     private void fillData() {
-        txvI1.setText("Tecnologico de Culiacan");
+        txvI1.setText(R.string.institute);
         txvN1.setText(sol.getAl().nombreCompleto());
-        txvNP1.setText("2015");
+        txvNP1.setText(R.string.year_sample);
         txvCP1.setText("1");
-        txvIT1.setText("Culiacan");
-        txvNP2.setText("2015");
+        txvIT1.setText(R.string.institute_name_sample);
+        txvNP2.setText(R.string.year_sample);
         txvCP2.setText("1");
-        txvIT2.setText("Culiacan");
+        txvIT2.setText(R.string.institute_name_sample);
     }
     private void fillTable(){
         //analizada -> maestro
@@ -118,7 +113,7 @@ public class Anexo7Activity extends AppCompatActivity {
 
     }
     public void act(View v){
-        String d,sta,psta,cdr = null;
+        String d,sta,psta;
         String[] nD3 = null;
         String status = (user instanceof JefeDepartamento) ? "8" : "9";
         String[] data = {""+sol.getID(),""+sol.getAl().getMatricula(),status};

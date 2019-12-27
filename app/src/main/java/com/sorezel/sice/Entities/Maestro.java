@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Maestro implements Serializable {
 
     private int ID;
-    private String Nombre,ApePat,ApeMat,Contraseña;
+    private String Nombre,ApePat,ApeMat, Password;
 
     public Maestro() {
     }
 
-    public Maestro(int ID, String nombre, String apePat, String apeMat, String contraseña) {
+    public Maestro(int ID, String nombre, String apePat, String apeMat, String password) {
         this.ID = ID;
         Nombre = nombre;
         ApePat = apePat;
         ApeMat = apeMat;
-        Contraseña = contraseña;
+        Password = password;
     }
 
     public int getID() {
@@ -50,12 +50,12 @@ public class Maestro implements Serializable {
         ApeMat = apeMat;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setContraseña(String contraseña) {
-        Contraseña = contraseña;
+    public void setPassword(String password) {
+        Password = password;
     }
     public String nombreCompleto(){
         String output = "";

@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Status implements Serializable {
 
-    short ID;
-    String desc;
+    private short ID;
+    private String desc;
 
     public Status() {
     }

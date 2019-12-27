@@ -2,8 +2,8 @@ package com.sorezel.sice.Entities;
 
 public class PlanEstudio {
 
-    short ID;
-    String nombre;
+    private short ID;
+    private String nombre;
 
     public PlanEstudio() {
     }

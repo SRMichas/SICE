@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Instituto implements Serializable {
 
-    int ID;
-    String Nombre,Correo;
-    char[] Telefono;
+    private int ID;
+    private String Nombre,Correo;
+    private char[] Telefono;
 
     public Instituto() {
     }

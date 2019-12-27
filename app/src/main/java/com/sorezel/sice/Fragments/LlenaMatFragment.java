@@ -8,32 +8,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sorezel.sice.Adapters.ListKardexAdapter;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.R;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 public class LlenaMatFragment extends Fragment {
 
-    View v;
-    TextView txvN,txvC,txvM1C,txvM1N,txvM1CA;
-    EditText edtM2C,edtM2N,edtM2CA,edtP;
-    Spinner sp;
-    RecyclerView rc;
-    ListKardexAdapter lka;
-    Button btnADD,btnREM,btnFIN;
-    ArrayList<Materia> materias;
-    Materia mat;
+    private View v;
+    private TextView txvN,txvC,txvM1C,txvM1N,txvM1CA;
+    private EditText edtM2C,edtM2N,edtM2CA,edtP;
+    private Spinner sp;
+    private RecyclerView rc;
+    private ListKardexAdapter lka;
+    private ArrayList<Materia> materias;
+    private Materia mat;
 
 
     @Nullable
@@ -64,6 +60,7 @@ public class LlenaMatFragment extends Fragment {
         lka = new ListKardexAdapter(materias);
         rc.setLayoutManager(llm);
         rc.setAdapter(lka);
+        Button btnADD,btnREM,btnFIN;
         btnADD = v.findViewById(R.id.agr);
         btnADD.setOnClickListener(new View.OnClickListener() {
             @Override

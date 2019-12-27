@@ -3,46 +3,38 @@ package com.sorezel.sice;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
 import com.sorezel.sice.Adapters.AnexoAdapter;
-import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.JefeAcademia;
 import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Anexo6Activity extends AppCompatActivity{
 
-    private LocalHelper2.Insersiones inserts;
-    private LocalHelper2.Consultas selects;
-    private LocalHelper2.Actualizaciones updates;
-    private Alumno al;
+    private LocalHelper.Insersiones inserts;
+    private LocalHelper.Consultas selects;
+    private LocalHelper.Actualizaciones updates;
     private Solicitud sol;
     private Object user;
-
     private TextView txvI1,txvN1,txvNP1,txvCP1,txvIT1,txvNP2,txvCP2,txvIT2;
     private EditText edtA,edtJA,edtJD;
-    private Spinner spGen;
+    //private Spinner spGen;
     private RecyclerView table;
-    Map<Character,Object> map;
+    private Map<Character,Object> map;
     boolean test = false;
 
 
@@ -55,7 +47,7 @@ public class Anexo6Activity extends AppCompatActivity{
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        LocalHelper2 helper = new LocalHelper2(this);
+        LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
         inserts = helper.new Insersiones();
         selects = helper.new Consultas();
@@ -63,7 +55,7 @@ public class Anexo6Activity extends AppCompatActivity{
 
         //al = (Alumno) getIntent().getSerializableExtra("student");
         sol = (Solicitud) getIntent().getSerializableExtra("sol");
-        al = sol.getAl();
+        Alumno al = sol.getAl();
         user = getIntent().getSerializableExtra("user");
 
         init();
@@ -84,18 +76,18 @@ public class Anexo6Activity extends AppCompatActivity{
         edtA = findViewById(R.id.edt_firma_analizado);
         edtJA = findViewById(R.id.edt_firma_jefe_academia);
         edtJD = findViewById(R.id.JefeDepa);
-        spGen = findViewById(R.id.sp_gen);
+        Spinner spGen = findViewById(R.id.sp_gen);
         table = findViewById(R.id.recy_mat);
     }
     private void fillData(){
-        txvI1.setText("Tecnologico de Culiacan");
+        txvI1.setText(R.string.institute);
         txvN1.setText(sol.getAl().nombreCompleto());
-        txvNP1.setText("2015");
+        txvNP1.setText(R.string.plan_date_sample);
         txvCP1.setText("1");
-        txvIT1.setText("Culiacan");
-        txvNP2.setText("2015");
+        txvIT1.setText(R.string.institute_name_sample);
+        txvNP2.setText(R.string.year_sample);
         txvCP2.setText("1");
-        txvIT2.setText("Culiacan");
+        txvIT2.setText(R.string.institute_name_sample);
 
     }
     private void fillTable(){

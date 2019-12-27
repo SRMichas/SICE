@@ -31,14 +31,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10.0dip"
                     android:gravity="center"
-                    android:text="Formulario de Convalidacion"
-                    android:textSize="22.0dip"
+                    android:text="@string/form_header"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre del Estudiante"
+                    android:text="@string/form_txv1"
                     android:textSize="@dimen/tam_letra"
                     android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Instituto Tecnologico"
+                    android:text="@string/form_txv2"
                     android:textSize="@dimen/tam_letra"
                     android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:text="No. Control"
+                        android:text="@string/form_txv3"
                         android:textSize="@dimen/tam_letra"
                         android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:text="Semestre"
+                        android:text="@string/form_txv4"
                         android:textSize="@dimen/tam_letra"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -111,7 +111,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Carrera que cursa"
+                    android:text="@string/form_txv5"
                     android:textSize="@dimen/tam_letra"
                     android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5.0dip"
-                    android:text="Clave Plan de Estudios"
+                    android:text="@string/form_txv6"
                     android:textSize="@dimen/tam_letra"
                     android:textStyle="bold" />
 
@@ -150,7 +150,7 @@
                     android:id="@+id/textView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Carrera Solicitada"
+                    android:text="@string/form_txv7"
                     android:textSize="@dimen/tam_letra"
                     android:textStyle="bold" />
 
@@ -192,7 +192,7 @@
             android:layout_marginRight="25.0dip"
             android:layout_marginBottom="10.0dip"
             android:onClick="singIn"
-            android:text="Aceptar"
+            android:text="@string/form_btn_txt"
             android:textAllCaps="false" />
 
     </LinearLayout>

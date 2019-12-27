@@ -2,9 +2,8 @@ package com.sorezel.sice;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +12,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.sorezel.sice.BD.LocalHelper;
-import com.sorezel.sice.BD.LocalHelper2;
 import com.sorezel.sice.Entities.Alumno;
 import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.Fragments.AlmunoStartFragment;
@@ -29,13 +26,12 @@ import com.sorezel.sice.Fragments.StatusFragment;
 public class AlumnoActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout DWL;
-    private NavigationView NGV;
     Alumno al;
     FragmentManager fragM;
-    LocalHelper2.Eliminaciones deletes;
-    LocalHelper2.Consultas selects;
-    LocalHelper2.Actualizaciones updates;
-    LocalHelper2.Insersiones inserts;
+    LocalHelper.Eliminaciones deletes;
+    LocalHelper.Consultas selects;
+    LocalHelper.Actualizaciones updates;
+    LocalHelper.Insersiones inserts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +40,7 @@ public class AlumnoActivity extends AppCompatActivity implements NavigationView.
 
         Toolbar tb = findViewById(R.id.alumno_tool);
         setSupportActionBar(tb);
-        LocalHelper2 helper = new LocalHelper2(this);
+        LocalHelper helper = new LocalHelper(this);
         helper.openDataBase();
         deletes = helper.new Eliminaciones();
         selects = helper.new Consultas();
@@ -56,7 +52,7 @@ public class AlumnoActivity extends AppCompatActivity implements NavigationView.
         al = (Alumno) getIntent().getSerializableExtra("user");
 
         DWL = findViewById(R.id.alum_drawer);
-        NGV = findViewById(R.id.alumno_nav);
+        NavigationView NGV = findViewById(R.id.alumno_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,DWL,tb,R.string.open,R.string.close);
         DWL.addDrawerListener(toggle);
         toggle.syncState();
@@ -76,11 +72,11 @@ public class AlumnoActivity extends AppCompatActivity implements NavigationView.
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Toast.makeText(this,"Seleccionaste "+item.getTitle(), Toast.LENGTH_SHORT).show();
         //SharedPreferences sh = getSharedPreferences("Usuario",0);
-        Fragment fragment = null;
+        Fragment fragment;
         Bundle b = new Bundle();
         Solicitud sol;
         switch (id){

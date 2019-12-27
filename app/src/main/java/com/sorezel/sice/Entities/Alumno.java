@@ -5,18 +5,18 @@ import java.io.Serializable;
 public class Alumno implements Serializable {
 
     private int Matricula;
-    private String Nombre,ApePat,ApeMat,Contraseña;
+    private String Nombre,ApePat,ApeMat, Password;
     private short Semestre;
     private Carrera carr;
 
     public Alumno() { }
 
-    public Alumno(int matricula, String nombre, String apePat, String apeMat, String contraseña, short semestre, Carrera carr) {
+    public Alumno(int matricula, String nombre, String apePat, String apeMat, String password, short semestre, Carrera carr) {
         Matricula = matricula;
         Nombre = nombre;
         ApePat = apePat;
         ApeMat = apeMat;
-        Contraseña = contraseña;
+        Password = password;
         Semestre = semestre;
         this.carr = carr;
     }
@@ -53,12 +53,12 @@ public class Alumno implements Serializable {
         ApeMat = apeMat;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setContraseña(String contraseña) {
-        Contraseña = contraseña;
+    public void setPassword(String password) {
+        Password = password;
     }
 
     public short getSemestre() {

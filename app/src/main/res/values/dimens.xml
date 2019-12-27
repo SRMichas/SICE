@@ -12,6 +12,6 @@
     <dimen name="login_editxt">200.0dip</dimen>
     <dimen name="logo">120.0dip</dimen>
     <dimen name="txv_margin_left">38dp</dimen>
-    <dimen name="progress_size">190dp</dimen>
+    <dimen name="progress_size">170dp</dimen>
     <dimen name="fg_ace_sz">180dp</dimen>
 </resources>

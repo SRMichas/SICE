@@ -2,41 +2,36 @@ package com.sorezel.sice.Fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.sorezel.sice.BD.LocalHelper2;
+import com.sorezel.sice.BD.LocalHelper;
 import com.sorezel.sice.Entities.Escolares;
 import com.sorezel.sice.Entities.JefeDepartamento;
 import com.sorezel.sice.Entities.Maestro;
 import com.sorezel.sice.Entities.Materia;
 import com.sorezel.sice.Entities.Solicitud;
 import com.sorezel.sice.R;
-
 import java.util.ArrayList;
 
 public class LoadingFragment extends Fragment {
 
-    LocalHelper2.Consultas selects;
-    View v;
+    private LocalHelper.Consultas selects;
     private Fragment fragment = null;
-    ArrayList<Solicitud> solicituds;
-    Object user;
+    private ArrayList<Solicitud> solicituds;
+    private Object user;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_load,container,false);
+        View v = inflater.inflate(R.layout.fragment_load,container,false);
 
         if( getArguments() != null){
             final Bundle b = getArguments();
             char control = b.getChar("key");
-            LocalHelper2 helper = new LocalHelper2(getActivity());
+            LocalHelper helper = new LocalHelper(getActivity());
             helper.openDataBase();
             selects = helper.new Consultas();
 

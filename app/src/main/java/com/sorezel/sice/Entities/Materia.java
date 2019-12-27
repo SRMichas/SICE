@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Materia implements Serializable {
 
-    int ID;
-    String Nombre;
-    short Creditos,Calificacion;
+    private int ID;
+    private String Nombre;
+    private short Creditos,Calificacion;
 
     public Materia() {
     }

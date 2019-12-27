@@ -1,7 +1,5 @@
 package com.sorezel.sice.Adapters;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,9 +9,9 @@ import java.util.ArrayList;
 
 public class KardexAdapter extends FragmentStatePagerAdapter {
 
-    ArrayList<Fragment> pesta= new ArrayList<>();
-    Context con;
-    String[] names;
+    private ArrayList<Fragment> pesta= new ArrayList<>();
+    //private Context con;
+    private String[] names;
 
     public KardexAdapter(@NonNull FragmentManager fm, int behavior,String[] n) {
         super(fm, behavior);
